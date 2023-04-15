@@ -13,6 +13,23 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+// Login of user
+Route::get('/login', function () {
+    return view('login');
+});
+
+
+// Registration of user
+Route::get('/register', function () {
+    return view('register');
+});
+
+// Eshop main page
+Route::get('/products', function () {
+    return view('mainPage');
+});
+
+// Detail of product
+Route::get('/products/{id}', function () {
+    return view('detailOfProduct');
 });

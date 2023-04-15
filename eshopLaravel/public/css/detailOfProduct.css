@@ -1,0 +1,19 @@
+.container{
+  margin-top: 15px;
+  margin-bottom: 15px
+}
+
+.card{
+  margin-top: 15px;
+  margin-bottom: 15px
+}
+
+.nav-link {
+  margin-right: 10px;
+  margin-left: 10px;
+  color: black; 
+}
+
+.nav-link:hover{
+  color: black;
+}
