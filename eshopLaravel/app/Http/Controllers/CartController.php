@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Shipping;
+use App\Models\Payment;
 
 class CartController extends Controller
 {
@@ -13,11 +15,15 @@ class CartController extends Controller
     }
     //show shipping
     public function shipping() {
-        return view('cart.shipping');
+        return view('cart.shipping', [
+            'shippings' => Shipping::all()
+        ]);
     }
     //show payment
     public function payment() {
-        return view('cart.payment');
+        return view('cart.payment', [
+            'payments' => Payment::all()
+        ]);
     }
     //show info
     public function info() {

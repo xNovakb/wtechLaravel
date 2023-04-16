@@ -61,56 +61,24 @@
                         <h1>Zvoľte spôsob doručenia</h1>
                     </div>
                     <form class="bordered row p-4">
+                        @unless(count($shippings) == 0)
+
+                        @foreach ($shippings as $shipping)
                         <div class="form-check col-6 p-4 d-flex align-items-center">
-                            <input class="form-check-input me-2" type="radio" name="transport-radio" value="" id="box">
-                            <label class="form-check-label" for="box">XYBox</label>
+                            <input class="form-check-input me-2" type="radio" name="transport-radio" value="">
+                            <label class="form-check-label" for="box">{{$shipping['shipping_type']}}</label>
                         </div>
                         <div class="col-3 p-4 d-flex justify-content-center align-items-center">
-                            1,49€
+                            {{($shipping['price'] == 0) ? 'Zadarmo' : $shipping['price'].'€'}}
                         </div>
                         <div class="col-3 p-4 d-flex justify-content-center align-items-center">
-                            do 24 hod.
+                            {{$shipping['time_delivery']}}
                         </div>
-                        <div class="form-check col-6 p-4 d-flex align-items-center">
-                            <input class="form-check-input me-2" type="radio" name="transport-radio" value="" id="shop">
-                            <label class="form-check-label" for="shop">Predajňa</label>
-                        </div>
-                        <div class="col-3 p-4 d-flex justify-content-center align-items-center">
-                            Zadarmo
-                        </div>
-                        <div class="col-3 p-4 d-flex justify-content-center align-items-center">
-                            Ihneď
-                        </div>
-                        <div class="form-check col-6 p-4 d-flex align-items-center">
-                            <input class="form-check-input me-2" type="radio" name="transport-radio" value="" id="zasielkovna">
-                            <label class="form-check-label" for="zasielkovna">Zasielkovňa</label>
-                        </div>
-                        <div class="col-3 p-4 d-flex justify-content-center align-items-center">
-                            1,99€
-                        </div>
-                        <div class="col-3 p-4 d-flex justify-content-center align-items-center">
-                            2-3 dni
-                        </div>
-                        <div class="form-check col-6 p-4 d-flex align-items-center">
-                            <input class="form-check-input me-2" type="radio" name="transport-radio" value="" id="posta">
-                            <label class="form-check-label" for="posta">Slovenská Pošta</label>
-                        </div>
-                        <div class="col-3 p-4 d-flex justify-content-center align-items-center">
-                            1,99€
-                        </div>
-                        <div class="col-3 p-4 d-flex justify-content-center align-items-center">
-                            2-3 dni
-                        </div>
-                        <div class="form-check col-6 p-4 d-flex align-items-center">
-                            <input class="form-check-input me-2" type="radio" name="transport-radio" value="" id="adress">
-                            <label class="form-check-label" for="adress">Doručenie na adresu (DPD)</label>
-                        </div>
-                        <div class="col-3 p-4 d-flex justify-content-center align-items-center">
-                            3,49€
-                        </div>
-                        <div class="col-3 p-4 d-flex justify-content-center align-items-center">
-                            3-5 dní
-                        </div>
+                        @endforeach
+                            
+                        @else
+                            <p>No shipping methods</p>
+                        @endunless
                     </form>
                 </div>
                 <div class="col-4 d-none d-lg-block">

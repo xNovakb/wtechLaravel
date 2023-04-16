@@ -61,34 +61,22 @@
                         <h1>Zvoľte spôsob platby</h1>
                     </div>
                     <form class="row p-4 bordered">
-                        <div class="form-check col-6 p-4 d-flex align-items-center">
-                            <input class="form-check-input me-2" type="radio" name="payment-radio" value="" id="card">
-                            <label class="form-check-label" for="card">Kreditná karta</label>
-                        </div>
-                        <div class="col-6 p-4 d-flex justify-content-end align-items-center">
-                            -1,00€
-                        </div>
-                        <div class="form-check col-6 p-4 d-flex align-items-center">
-                            <input class="form-check-input me-2" type="radio" name="payment-radio" value="" id="paypal">
-                            <label class="form-check-label" for="paypal">PayPal</label>
-                        </div>
-                        <div class="col-6 p-4 d-flex justify-content-end align-items-center">
-                            -1,00€
-                        </div>
-                        <div class="form-check col-6 p-4 d-flex align-items-center">
-                            <input class="form-check-input me-2" type="radio" name="payment-radio" value="" id="dobierka">
-                            <label class="form-check-label" for="dobierka">Na dobierku</label>
-                        </div>
-                        <div class="col-6 p-4 d-flex justify-content-end align-items-center">
-                            +1,99€
-                        </div>
-                        <div class="form-check col-6 p-4 d-flex align-items-center">
-                            <input class="form-check-input me-2" type="radio" name="payment-radio" value="" id="transfer">
-                            <label class="form-check-label" for="transfer">Prevodom na účet</label>
-                        </div>
-                        <div class="col-6 p-4 d-flex justify-content-end align-items-center">
-                            +1,00€
-                        </div>
+
+                        @unless (count($payments) == 0)
+                            @foreach ($payments as $payment)
+                            <div class="form-check col-6 p-4 d-flex align-items-center">
+                                <input class="form-check-input me-2" type="radio" name="payment-radio" value="" id="card">
+                                <label class="form-check-label" for="card">{{$payment['payment_type']}}</label>
+                            </div>
+                            <div class="col-6 p-4 d-flex justify-content-end align-items-center">
+                                {{$payment['price'].'€'}}
+                            </div>
+                            @endforeach
+
+                            @else
+                            <p>No payment methods</p>
+                        @endunless
+                        
                     </form>
                 </div>
                 <div class="col-6 d-none d-lg-block">
