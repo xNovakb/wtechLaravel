@@ -1,7 +1,11 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+<<<<<<< HEAD
 use App\Http\Controllers\UserController;
+=======
+use App\Http\Controllers\CartController;
+>>>>>>> ee8231b1aa7d1fc33af338584c4340c1c6e9e55f
 
 /*
 |--------------------------------------------------------------------------
@@ -29,8 +33,18 @@ Route::get('/products/{id}', function () {
     return view('detailOfProduct');
 });
 
+<<<<<<< HEAD
 // Registration of user
 Route::get('/register', [UserController::class, 'create']);
 
 // Create user
 Route::post('/user', [UserController::class, 'store']);
+=======
+//Cart prefix
+Route::prefix('cart')->group(function () {
+    Route::get('/summary', [CartController::class, 'summary']);
+    Route::get('/shipping', [CartController::class, 'shipping']);
+    Route::get('/payment', [CartController::class, 'payment']);
+    Route::get('/info', [CartController::class, 'info']);
+});
+>>>>>>> ee8231b1aa7d1fc33af338584c4340c1c6e9e55f
