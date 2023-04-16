@@ -2,7 +2,6 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\CartController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,10 +34,3 @@ Route::get('/register', [UserController::class, 'create']);
 
 // Create user
 Route::post('/user', [UserController::class, 'store']);
-//Cart prefix
-Route::prefix('cart')->group(function () {
-    Route::get('/summary', [CartController::class, 'summary']);
-    Route::get('/shipping', [CartController::class, 'shipping']);
-    Route::get('/payment', [CartController::class, 'payment']);
-    Route::get('/info', [CartController::class, 'info']);
-});
