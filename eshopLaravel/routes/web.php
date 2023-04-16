@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CartController;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,4 +33,12 @@ Route::get('/products', function () {
 // Detail of product
 Route::get('/products/{id}', function () {
     return view('detailOfProduct');
+});
+
+//Cart prefix
+Route::prefix('cart')->group(function () {
+    Route::get('/summary', [CartController::class, 'summary']);
+    Route::get('/shipping', [CartController::class, 'shipping']);
+    Route::get('/payment', [CartController::class, 'payment']);
+    Route::get('/info', [CartController::class, 'info']);
 });
