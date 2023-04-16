@@ -13,34 +13,38 @@
     <link href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@500;600&family=Roboto+Mono:wght@100;400&display=swap" rel="stylesheet">
 </head>
 <body>
-    <nav class="navbar navbar-expand-md bg-body-tertiary py-3">
-        <div class="container-fluid justify-content-center px-4">
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <div class="d-flex align-items-center flex-grow-1">
-              <form class="d-flex justify-content-center w-100">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-primary" type="submit">
-                  <i class="zmdi zmdi-search fs-2"></i>
+    <header>
+        <nav class="navbar navbar-expand-md bg-body-tertiary py-3">
+            <div class="container-fluid justify-content-center px-4">
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <div class="d-flex align-items-center flex-grow-1 justify-content-end">
+                    <form class="d-flex col-10">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn" type="submit">
+                        <i class="zmdi zmdi-search fs-2"></i>
+                    </button>
+                    </form>
+                </div>
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link d-none d-md-inline " href="/products">
+                            <i class="zmdi zmdi-home fs-2"></i>
+                        </a>
+                        <a class="nav-link d-md-none" href="#">Košík</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link d-none d-md-inline" href="#">
+                            <i class="zmdi zmdi-power fs-2"></i>
+                        </a>
+                        <a class="nav-link d-md-none" href="#">Odhlásiť sa</a>
+                    </li>
+                </ul>
+                </div>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <i class="zmdi zmdi-menu fs-2"></i>
                 </button>
-              </form>
-            </div>
-            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-              <li class="nav-item">
-                <a class="nav-link" href="#">
-                  <i class="zmdi zmdi-shopping-cart-plus fs-2"></i>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link">
-                  <i class="zmdi zmdi-account-circle fs-2"></i>
-                </a>
-              </li>
-            </ul>
-          </div>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <i class="zmdi zmdi-menu fs-2"></i>
-          </button>
-      </nav>
+            </nav>
+        </header>
     <div class="container">
         <nav class="container d-none d-sm-block m-4">
             <div class="row justify-content-center">
