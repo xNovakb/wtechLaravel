@@ -36,6 +36,9 @@ Route::get('/register', [UserController::class, 'create']);
 // Create user
 Route::post('/user', [UserController::class, 'store']);
 
+// Logout user
+Route::post('/logout', [UserController::class, 'logout']);
+
 //Cart prefix
 Route::prefix('cart')->group(function () {
     Route::get('/summary', [CartController::class, 'summary']);

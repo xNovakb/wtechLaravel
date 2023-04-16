@@ -35,4 +35,14 @@ class UserController extends Controller
 
         return redirect('/products');
     }
+
+    public function logout(Request $request) {
+        auth()->logout();
+
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return redirect('/products');
+    }
+
 }
