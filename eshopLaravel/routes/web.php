@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,12 +19,6 @@ Route::get('/login', function () {
     return view('login');
 });
 
-
-// Registration of user
-Route::get('/register', function () {
-    return view('register');
-});
-
 // Eshop main page
 Route::get('/products', function () {
     return view('mainPage');
@@ -33,3 +28,9 @@ Route::get('/products', function () {
 Route::get('/products/{id}', function () {
     return view('detailOfProduct');
 });
+
+// Registration of user
+Route::get('/register', [UserController::class, 'create']);
+
+// Create user
+Route::post('/user', [UserController::class, 'store']);

@@ -42,55 +42,56 @@
       </nav>
       <div class="card border-dark">
         <div class="card-body">
-          <form>
+          <form method="POST" action="/user">
+            @csrf
             <h2>Registrácia</h2>
             <div class="form-group row">
               <label for="email" class="col-sm-3 col-form-label">Email*</label>
               <div class="col-sm-9">
-                <input type="email" class="form-control" id="email" placeholder="Email">
+                <input type="email" class="form-control" id="email" placeholder="Email" name="email">
               </div>
             </div>
             <div class="form-group row">
-              <label for="name" class="col-sm-3 col-form-label">Heslo*</label>
+              <label for="password" class="col-sm-3 col-form-label">Heslo*</label>
               <div class="col-sm-9">
-                <input type="password" class="form-control" id="name" placeholder="Heslo">
+                <input type="password" class="form-control" id="password" placeholder="Heslo" name="password">
               </div>
             </div>
             <div class="form-group row">
-              <label for="password" class="col-sm-3 col-form-label">Potvrdenie hesla*</label>
+              <label for="password2" class="col-sm-3 col-form-label">Potvrdenie hesla*</label>
               <div class="col-sm-9">
-                <input type="password" class="form-control" id="password" placeholder="Heslo">
+                <input type="password" class="form-control" id="password2" placeholder="Heslo" name="password_confirmation">
               </div>
             </div>
             <div class="form-group row">
-              <label for="phone" class="col-sm-3 col-form-label">Telefónne číslo*</label>
+              <label for="tel_number" class="col-sm-3 col-form-label">Telefónne číslo*</label>
               <div class="col-sm-9">
-                <input type="tel" class="form-control" id="phone" placeholder="0957864598">
+                <input type="tel" class="form-control" id="tel_number" placeholder="0957864598" name="tel_number">
               </div>
             </div>
             <h2>Fakturačné údaje</h2>
             <div class="form-group row">
                 <label for="name-surname" class="col-sm-3 col-form-label">Meno a priezvisko*</label>
                 <div class="col-sm-9">
-                  <input type="text" class="form-control" id="name-surname" placeholder="Jozef Mrkva">
+                  <input type="text" class="form-control" id="name-surname" placeholder="Jozef Mrkva" name="name_surname">
                 </div>
             </div>
             <div class="form-group row">
                 <label for="street" class="col-sm-3 col-form-label">Ulica*</label>
                 <div class="col-sm-9">
-                  <input type="text" class="form-control" id="street" placeholder="Dolnozemská">
+                  <input type="text" class="form-control" id="street" placeholder="Dolnozemská" name="street">
                 </div>
             </div>
             <div class="form-group row">
                 <label for="city" class="col-sm-3 col-form-label">Mesto*</label>
                 <div class="col-sm-9">
-                  <input type="text" class="form-control" id="city" placeholder="Bratislava">
+                  <input type="text" class="form-control" id="city" placeholder="Bratislava" name="city">
                 </div>
             </div>
             <div class="form-group row">
                 <label for="postalcode" class="col-sm-3 col-form-label">PSC*</label>
                 <div class="col-sm-9">
-                  <input type="number" class="form-control" id="postalcode" placeholder="02943">
+                  <input type="number" class="form-control" id="postalcode" placeholder="02943" name="postalcode">
                 </div>
             </div>
             <div class="form-group row">
