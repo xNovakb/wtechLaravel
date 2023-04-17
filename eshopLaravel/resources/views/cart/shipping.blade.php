@@ -54,18 +54,20 @@
                 <div class="col-lg-2 col-sm-2 d-flex align-items-center justify-content-center text-center cart-nav" id="nav-information">Dodacie údaje</div>
             </div>
         </nav>
+        <form action="/cart/payment" method="POST">
+            @csrf
         <main class="container p-sm-5 overflow-auto">
             <div class="row">
                 <div class="col col-lg-8">
                     <div class="row p-3">
                         <h1>Zvoľte spôsob doručenia</h1>
                     </div>
-                    <form class="bordered row p-4">
+                    <div class="bordered row p-4">
                         @unless(count($shippings) == 0)
 
                         @foreach ($shippings as $shipping)
                         <div class="form-check col-6 p-4 d-flex align-items-center">
-                            <input class="form-check-input me-2" type="radio" name="transport-radio" value="">
+                            <input class="form-check-input me-2" type="radio" name="shipping" value={{$loop->iteration}}>
                             <label class="form-check-label" for="box">{{$shipping['shipping_type']}}</label>
                         </div>
                         <div class="col-3 p-4 d-flex justify-content-center align-items-center">
@@ -79,7 +81,7 @@
                         @else
                             <p>No shipping methods</p>
                         @endunless
-                    </form>
+                    </div>
                 </div>
                 <div class="col-4 d-none d-lg-block">
                     <div class="row">
@@ -101,10 +103,11 @@
                     <button type="button" class="btn btn-success" onclick="location.href='{{ '/cart/summary' }}'">Späť</button>
                 </div>
                 <div class="col d-flex justify-content-end">
-                    <button type="button" class="btn btn-success" onclick="location.href='{{ '/cart/payment' }}'">Pokračovať</button>                    
+                    <button type="submit" class="btn btn-success">Pokračovať</button>                    
                 </div>
             </div>
         </div>
+        </form>
     </div>
 </body>
 </html>

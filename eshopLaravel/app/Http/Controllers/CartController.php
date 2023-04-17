@@ -20,13 +20,32 @@ class CartController extends Controller
         ]);
     }
     //show payment
-    public function payment() {
+    public function payment(Request $request) {
         return view('cart.payment', [
-            'payments' => Payment::all()
+            'payments' => Payment::all(),
+            'shipping_id' => $request->shipping
         ]);
     }
     //show info
-    public function info() {
-        return view('cart.info');
+    public function info(Request $request) {
+        return view('cart.info', [
+            'shipping_id' => $request->shipping,
+            'payment_id' => $request->payment
+        ]);
+    }
+    //store order
+    public function store(Request $request) {
+        switch ($request->input('action')) {
+            case 'back':
+                return view('cart.payment', [
+                    'payments' => Payment::all(),
+                    'shipping_id' => $request->shipping
+                ]);
+                break;
+    
+            case 'save':
+                dd($request->all());
+                break;
+        }
     }
 }

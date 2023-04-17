@@ -54,60 +54,64 @@
                 <div class="col-lg-2 col-sm-2 d-flex align-items-center justify-content-center text-center cart-nav" id="nav-information">Dodacie údaje</div>
             </div>
         </nav>
+        <form action="/cart/store" method="POST">
+            @csrf
         <main class="container pt-5 p-sm-5 overflow-auto">
             <div class="row">
                 <div class="col-12 col-md-6 col-lg-3">
-                    <form class="row">
+                    <div class="row">
+                        <input type='hidden' name='shipping' value={{$shipping_id}}>
+                        <input type='hidden' name='payment' value={{$payment_id}}>
                         <div class="col-12 d-flex align-items-center justify-content-center sm-justify-content-end  mb-5">
                             <label for="name" class="form-label">Meno</label>
-                            <input type="text" class="form-information ms-2" id="name">
+                            <input type="text" class="form-information ms-2" name="name">
                         </div>
                         <div class="col-12 d-flex align-items-center justify-content-center sm-justify-content-end  mb-5">
                             <label for="surname" class="form-label">Priezvisko</label>
-                            <input type="text" class="form-information ms-2" id="surname">
+                            <input type="text" class="form-information ms-2" name="surname">
                         </div>
                         <div class="col-12 d-flex align-items-center justify-content-center sm-justify-content-end  mb-5">
                             <label for="email" class="form-label">Email</label>
-                            <input type="text" class="form-information ms-2" id="email">
+                            <input type="text" class="form-information ms-2" name="email">
                         </div>
                         <div class="col-12 d-flex align-items-center justify-content-center sm-justify-content-end  mb-5">
                             <label for="psc" class="form-label">PSČ</label>
-                            <input type="text" class="form-information ms-2" id="psc">
+                            <input type="text" class="form-information ms-2" name="psc">
                         </div>
                         <div class="col-12 d-flex align-items-center justify-content-center sm-justify-content-end  mb-5">
                             <label for="street" class="form-label">Ulica</label>
-                            <input type="text" class="form-information ms-2" id="street">
+                            <input type="text" class="form-information ms-2" name="street">
                         </div>
                         <div class="col-12 d-flex align-items-center justify-content-center sm-justify-content-end  mb-5">
                             <label for="city" class="form-label">Mesto</label>
-                            <input type="text" class="form-information ms-2" id="city">
+                            <input type="text" class="form-information ms-2" name="city">
                         </div>
                         <div class="col-12 d-flex align-items-center justify-content-center sm-justify-content-end  mb-5">
                             <label for="country" class="form-label">Štát</label>
-                            <input type="text" class="form-information ms-2" id="country">
+                            <input type="text" class="form-information ms-2" name="country">
                         </div>
-                    </form>
+                    </div>
                 </div>
                 <div class="col-12 col-md-6 col-lg-3">
                     <div class="col-12 d-flex align-items-center justify-content-center sm-justify-content-end  mb-5">
                         <label for="phone" class="form-label">Tel. č.</label>
-                        <input type="text" class="form-information ms-2" id="phone">
+                        <input type="text" class="form-information ms-2" name="phone">
                     </div>
                     <div class="col-12 d-flex align-items-center justify-content-center mb-4">
                         <label for="other" class="form-label">Doručenie na inú adresu</label>
-                        <input type="checkbox" class="form-information-checkbox ms-2" id="other">
+                        <input type="checkbox" class="form-information-checkbox ms-2" name="other" value="true">
                     </div>
                     <div class="col-12 d-flex align-items-center justify-content-center sm-justify-content-end  mb-5">
                         <label for="psc-2" class="form-label">PSČ</label>
-                        <input type="text" class="form-information ms-2" id="psc-2">
+                        <input type="text" class="form-information ms-2" name="psc-2">
                     </div>
                     <div class="col-12 d-flex align-items-center justify-content-center sm-justify-content-end  mb-5">
                         <label for="street-2" class="form-label">Ulica</label>
-                        <input type="text" class="form-information ms-2" id="street-2">
+                        <input type="text" class="form-information ms-2" name="street-2">
                     </div>
                     <div class="col-12 d-flex align-items-center justify-content-center sm-justify-content-end  mb-5">
                         <label for="city-2" class="form-label">Mesto</label>
-                        <input type="text" class="form-information ms-2" id="city-2">
+                        <input type="text" class="form-information ms-2" name="city-2">
                     </div>
                 </div>
                 <div class="col-12 col-lg-6 ps-lg-5">
@@ -135,13 +139,14 @@
         <div class="container pt-3">
             <div class="row">
                 <div class="col d-flex justify-content-start">
-                    <button type="button" class="btn btn-success" onclick="location.href='{{ '/cart/payment' }}'">Späť</button>
+                    <button type="submit" name="action" value="back" class="btn btn-success">Späť</button>
                 </div>
                 <div class="col d-flex justify-content-end">
-                    <button type="button" class="btn btn-success" onclick="location.href='{{ '/products' }}'">Pokračovať</button>                    
+                    <button type="submit" name="action" value="save" class="btn btn-success">Pokračovať</button>                    
                 </div>
             </div>
         </div>
+        </form>
     </div>
 </body>
 </html>

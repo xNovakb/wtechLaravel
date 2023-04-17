@@ -54,18 +54,20 @@
                 <div class="col-lg-2 col-sm-2 d-flex align-items-center justify-content-center text-center cart-nav" id="nav-information">Dodacie údaje</div>
             </div>
         </nav>
+        <form action="/cart/info" method="POST">
+            @csrf
         <main class="container p-sm-5 overflow-auto">
             <div class="row">
                 <div class="col col-lg-6">
                     <div class="row p-3">
                         <h1>Zvoľte spôsob platby</h1>
                     </div>
-                    <form class="row p-4 bordered">
-
+                    <div class="row p-4 bordered">
+                        <input type='hidden' name='shipping' value={{$shipping_id}}>
                         @unless (count($payments) == 0)
                             @foreach ($payments as $payment)
                             <div class="form-check col-6 p-4 d-flex align-items-center">
-                                <input class="form-check-input me-2" type="radio" name="payment-radio" value="" id="card">
+                                <input class="form-check-input me-2" type="radio" name="payment" value={{$loop->iteration}}>
                                 <label class="form-check-label" for="card">{{$payment['payment_type']}}</label>
                             </div>
                             <div class="col-6 p-4 d-flex justify-content-end align-items-center">
@@ -77,7 +79,7 @@
                             <p>No payment methods</p>
                         @endunless
                         
-                    </form>
+                    </div>
                 </div>
                 <div class="col-6 d-none d-lg-block">
                     <div class="row">
@@ -99,10 +101,11 @@
                     <button type="button" class="btn btn-success" onclick="location.href='{{ '/cart/shipping' }}'">Späť</button>
                 </div>
                 <div class="col d-flex justify-content-end">
-                    <button type="button" class="btn btn-success" onclick="location.href='{{ '/cart/info' }}'">Pokračovať</button>                    
+                    <button type="submit" class="btn btn-success">Pokračovať</button>                    
                 </div>
             </div>
         </div>
+        </form>
     </div>
 </body>
 </html>
