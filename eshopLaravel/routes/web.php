@@ -47,3 +47,15 @@ Route::prefix('cart')->group(function () {
     Route::post('/info', [CartController::class, 'info']);
     Route::post('/store', [CartController::class, 'store']);
 });
+
+
+//Admin prefix
+Route::prefix('admin')->group(function () {
+    Route::get('/products', function () {
+        return view('admin.adminMainPage');
+    });
+
+    Route::get('/products/{id}', function () {
+        return view('admin.productCreation');
+    });
+});
