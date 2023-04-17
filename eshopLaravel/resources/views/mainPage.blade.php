@@ -33,7 +33,7 @@
                             <a class="nav-link d-md-none" href="#">Košík</a>
                         </li>
                         <li class="nav-item">
-                            <form action="/logout" method="POST">
+                            <form action="/users/logout" method="POST">
                                 @csrf
                                 <button type="submit" class="nav-link d-none d-md-inline" href="#">
                                     <i class="zmdi zmdi-power fs-2"></i>

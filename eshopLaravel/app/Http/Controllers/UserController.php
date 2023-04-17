@@ -10,12 +10,12 @@ use App\Http\Controllers\Controller;
 class UserController extends Controller
 {
     // Show Register Form
-    public function create() {
-        return view('register');
+    public function register() {
+        return view('users.register');
     }
 
     // Create user
-    public function store(Request $request) {
+    public function create(Request $request) {
         $formFields = $request->validate([
             'email' => ['required', 'email', Rule::unique('users', 'email')],
             'password' => ['required', 'confirmed', 'min:6'],
@@ -36,6 +36,7 @@ class UserController extends Controller
         return redirect('/products');
     }
 
+    //Logout user
     public function logout(Request $request) {
         auth()->logout();
 
@@ -43,6 +44,25 @@ class UserController extends Controller
         $request->session()->regenerateToken();
 
         return redirect('/products');
+    }
+
+    //Login view
+    public function login(Request $request) {
+        return view('users.login');
+    }
+
+    //Auth user
+    public function auth(Request $request) {
+        $formFields = $request->validate([
+            'email' => ['required', 'email'],
+            'password' => ['required']
+        ]);
+
+        if(auth()->attempt($formFields)) {
+            $request->session()->regenerate();
+
+            return redirect('/products');
+        }
     }
 
 }
