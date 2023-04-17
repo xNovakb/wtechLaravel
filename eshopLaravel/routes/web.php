@@ -46,3 +46,14 @@ Route::prefix('cart')->group(function () {
     Route::get('/payment', [CartController::class, 'payment']);
     Route::get('/info', [CartController::class, 'info']);
 });
+
+//Admin prefix
+Route::prefix('admin')->group(function () {
+    Route::get('/products', function () {
+        return view('admin.adminMainPage');
+    });
+
+    Route::get('/products/{id}', function () {
+        return view('admin.productCreation');
+    });
+});
