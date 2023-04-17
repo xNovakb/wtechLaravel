@@ -60,59 +60,100 @@
             <div class="row">
                 <div class="col-12 col-md-6 col-lg-3">
                     <div class="row">
-                        <input type='hidden' name='shipping' value={{$shipping_id}}>
-                        <input type='hidden' name='payment' value={{$payment_id}}>
+                        @php
+                            $user_id = 0;
+                            try {
+                                $user_id = auth()->user()->id;
+                            } catch (Throwable $e){};
+                        @endphp
+                        <input type='hidden' name='shipping' value={{(old('shipping') == null) ? $shipping_id : old('shipping')}}>
+                        <input type='hidden' name='payment' value={{(old('payment') == null) ? $payment_id : old('payment')}}>
+                        <input type='hidden' name='user_id' value={{$user_id}}>
                         <div class="col-12 d-flex align-items-center justify-content-center sm-justify-content-end  mb-5">
                             <label for="name" class="form-label">Meno</label>
-                            <input type="text" class="form-information ms-2" name="name">
+                            <input type="text" class="form-information ms-2" name="name" value={{old('name')}}>
                         </div>
+                        @error('name')
+                            <p>{{$message}}</p>
+                        @enderror
                         <div class="col-12 d-flex align-items-center justify-content-center sm-justify-content-end  mb-5">
                             <label for="surname" class="form-label">Priezvisko</label>
-                            <input type="text" class="form-information ms-2" name="surname">
+                            <input type="text" class="form-information ms-2" name="surname" value={{old('surname')}}>
                         </div>
+                        @error('surname')
+                            <p>{{$message}}</p>
+                        @enderror
                         <div class="col-12 d-flex align-items-center justify-content-center sm-justify-content-end  mb-5">
                             <label for="email" class="form-label">Email</label>
-                            <input type="text" class="form-information ms-2" name="email">
+                            <input type="text" class="form-information ms-2" name="email" value={{old('email')}}>
                         </div>
+                        @error('email')
+                            <p>{{$message}}</p>
+                        @enderror
                         <div class="col-12 d-flex align-items-center justify-content-center sm-justify-content-end  mb-5">
                             <label for="psc" class="form-label">PSČ</label>
-                            <input type="text" class="form-information ms-2" name="psc">
+                            <input type="text" class="form-information ms-2" name="psc" value={{old('psc')}}>
                         </div>
+                        @error('psc')
+                            <p>{{$message}}</p>
+                        @enderror
                         <div class="col-12 d-flex align-items-center justify-content-center sm-justify-content-end  mb-5">
                             <label for="street" class="form-label">Ulica</label>
-                            <input type="text" class="form-information ms-2" name="street">
+                            <input type="text" class="form-information ms-2" name="street"  value={{old('street')}}>
                         </div>
+                        @error('street')
+                            <p>{{$message}}</p>
+                        @enderror
                         <div class="col-12 d-flex align-items-center justify-content-center sm-justify-content-end  mb-5">
                             <label for="city" class="form-label">Mesto</label>
-                            <input type="text" class="form-information ms-2" name="city">
+                            <input type="text" class="form-information ms-2" name="city" value={{old('city')}}>
                         </div>
+                        @error('city')
+                            <p>{{$message}}</p>
+                        @enderror
                         <div class="col-12 d-flex align-items-center justify-content-center sm-justify-content-end  mb-5">
                             <label for="country" class="form-label">Štát</label>
-                            <input type="text" class="form-information ms-2" name="country">
+                            <input type="text" class="form-information ms-2" name="country" value={{old('country')}}>
                         </div>
+                        @error('country')
+                            <p>{{$message}}</p>
+                        @enderror
                     </div>
                 </div>
                 <div class="col-12 col-md-6 col-lg-3">
                     <div class="col-12 d-flex align-items-center justify-content-center sm-justify-content-end  mb-5">
                         <label for="phone" class="form-label">Tel. č.</label>
-                        <input type="text" class="form-information ms-2" name="phone">
+                        <input type="text" class="form-information ms-2" name="phone" value={{old('phone')}}>
                     </div>
+                    @error('phone')
+                            <p>{{$message}}</p>
+                        @enderror
                     <div class="col-12 d-flex align-items-center justify-content-center mb-4">
                         <label for="other" class="form-label">Doručenie na inú adresu</label>
+                        <input type='hidden' name='other' value="false">
                         <input type="checkbox" class="form-information-checkbox ms-2" name="other" value="true">
                     </div>
                     <div class="col-12 d-flex align-items-center justify-content-center sm-justify-content-end  mb-5">
                         <label for="psc-2" class="form-label">PSČ</label>
-                        <input type="text" class="form-information ms-2" name="psc-2">
+                        <input type="text" class="form-information ms-2" name="psc-2" value={{old('psc-2')}}>
                     </div>
+                    @error('psc-2')
+                            <p>{{$message}}</p>
+                        @enderror
                     <div class="col-12 d-flex align-items-center justify-content-center sm-justify-content-end  mb-5">
                         <label for="street-2" class="form-label">Ulica</label>
-                        <input type="text" class="form-information ms-2" name="street-2">
+                        <input type="text" class="form-information ms-2" name="street-2" value={{old('street-2')}}>
                     </div>
+                    @error('street-2')
+                            <p>{{$message}}</p>
+                        @enderror
                     <div class="col-12 d-flex align-items-center justify-content-center sm-justify-content-end  mb-5">
                         <label for="city-2" class="form-label">Mesto</label>
-                        <input type="text" class="form-information ms-2" name="city-2">
+                        <input type="text" class="form-information ms-2" name="city-2" value={{old('city-2')}}>
                     </div>
+                    @error('city-2')
+                            <p>{{$message}}</p>
+                        @enderror
                 </div>
                 <div class="col-12 col-lg-6 ps-lg-5">
                     <div class="row text-center">
