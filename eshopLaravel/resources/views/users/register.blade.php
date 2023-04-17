@@ -42,7 +42,7 @@
       </nav>
       <div class="card border-dark">
         <div class="card-body">
-          <form method="POST" action="/user">
+          <form method="POST" action="/users/create">
             @csrf
             <h2>Registrácia</h2>
             <div class="form-group row">

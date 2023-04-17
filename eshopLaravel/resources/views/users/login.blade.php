@@ -18,14 +18,15 @@
               <div class="card border-dark text-white my-5">
                 <div class="card-body text-dark">
                   <h5 class="card-title text-center">Prihlásenie</h5>
-                  <form>
+                  <form method="POST" action="/users/auth">
+                    @csrf
                     <div class="form-group">
                       <label for="email">Email</label>
-                      <input type="text" class="form-control" id="email" placeholder="Zadajte email">
+                      <input type="text" class="form-control" id="email" placeholder="Zadajte email", name="email">
                     </div>
                     <div class="form-group ">
                       <label for="password">Heslo</label>
-                      <input type="password" class="form-control" id="password" placeholder="Zadajte heslo">
+                      <input type="password" class="form-control" id="password" placeholder="Zadajte heslo" name="password">
                     </div>
                     <div class="form-group">
                       <div class="form-group text-center my-3">

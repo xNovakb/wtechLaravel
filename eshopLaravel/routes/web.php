@@ -15,11 +15,6 @@ use App\Http\Controllers\CartController;
 |
 */
 
-// Login of user
-Route::get('/login', function () {
-    return view('login');
-});
-
 // Eshop main page
 Route::get('/products', function () {
     return view('mainPage');
@@ -30,14 +25,23 @@ Route::get('/products/{id}', function () {
     return view('detailOfProduct');
 });
 
-// Registration of user
-Route::get('/register', [UserController::class, 'create']);
+// Registration view
+Route::get('/register', [UserController::class, 'register']);
 
-// Create user
-Route::post('/user', [UserController::class, 'store']);
+// Login view
+Route::get('/login', [UserController::class, 'login']);
 
-// Logout user
-Route::post('/logout', [UserController::class, 'logout']);
+// Users functions
+Route::prefix('users')->group(function () {
+    // Login user
+    Route::post('/auth', [UserController::class, 'auth']);
+
+    // Create user
+    Route::post('/create', [UserController::class, 'create']);
+
+    // Logout user
+    Route::post('/logout', [UserController::class, 'logout']);
+});
 
 //Cart prefix
 Route::prefix('cart')->group(function () {
