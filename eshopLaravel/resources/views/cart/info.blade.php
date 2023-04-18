@@ -135,21 +135,21 @@
                     </div>
                     <div class="col-12 d-flex align-items-center justify-content-center sm-justify-content-end  mb-5">
                         <label for="psc-2" class="form-label">PSČ</label>
-                        <input type="text" class="form-information ms-2" name="psc-2" value={{old('psc-2')}}>
+                        <input type="text" class="form-information ms-2" name="psc2" value={{old('psc2')}}>
                     </div>
                     @error('psc-2')
                             <p>{{$message}}</p>
                         @enderror
                     <div class="col-12 d-flex align-items-center justify-content-center sm-justify-content-end  mb-5">
                         <label for="street-2" class="form-label">Ulica</label>
-                        <input type="text" class="form-information ms-2" name="street-2" value={{old('street-2')}}>
+                        <input type="text" class="form-information ms-2" name="street2" value={{old('street2')}}>
                     </div>
                     @error('street-2')
                             <p>{{$message}}</p>
                         @enderror
                     <div class="col-12 d-flex align-items-center justify-content-center sm-justify-content-end  mb-5">
                         <label for="city-2" class="form-label">Mesto</label>
-                        <input type="text" class="form-information ms-2" name="city-2" value={{old('city-2')}}>
+                        <input type="text" class="form-information ms-2" name="city2" value={{old('city2')}}>
                     </div>
                     @error('city-2')
                             <p>{{$message}}</p>

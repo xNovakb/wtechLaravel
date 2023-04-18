@@ -92,10 +92,27 @@ class CartController extends Controller
                         'city' => 'required',
                         'country' => 'required',
                         'phone' => 'required',
-                        'psc-2' => 'required',
-                        'street-2' => 'required',
-                        'city-2' => 'required',
+                        'psc2' => 'required',
+                        'street2' => 'required',
+                        'city2' => 'required',
                     ]);
+                    Order::create($formFields);
+                    $address_id = DB::table('address')->insertGetId(
+                        ['psc' => $request->psc2, 'street' => $request->street2, 'city' => $request->city2]
+                    );
+                    $order_id = DB::table('order')->select('id')->where([
+                        ['shipping', $request->shipping],
+                        ['payment', $request->payment],
+                        ['name', $request->name],
+                        ['surname', $request->surname],
+                        ['email', $request->email],
+                        ['phone', $request->phone],
+                        ['street', $request->street],
+                        ['city', $request->city],
+                        ['psc', $request->psc],
+                        ['country', $request->country]
+                    ])->value('id');
+                    DB::table('order')->where('id', $order_id)->update(['address_id' => $address_id]);
                 }
                 dd($request->all());
                 break;
