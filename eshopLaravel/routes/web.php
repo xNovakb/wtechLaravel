@@ -1,8 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\UserController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\ProductController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,6 +20,8 @@ use App\Http\Controllers\CartController;
 Route::get('/products', function () {
     return view('mainPage');
 });
+
+Route::get('/products', [ProductController::class, 'getAndSortProductsBy']);
 
 // Detail of product
 Route::get('/products/{id}', function () {

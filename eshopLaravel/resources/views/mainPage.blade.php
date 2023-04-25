@@ -13,6 +13,7 @@
         <title>Admin obrazovka</title>
     </head>
     <body>
+        <script src="{{ asset('js/mainPage.js') }}"></script>
         <header>
             <nav class="navbar navbar-expand-md bg-body-tertiary py-3">
                 <div class="container-fluid justify-content-center px-4">
@@ -52,10 +53,10 @@
         <div class="container-fluid">
             <div class="row pb-3">
                 <div class="col d-none d-sm-flex justify-content-center">
-                    <button class="btnFilter mx-2" type="button">Odporúčané</button>
-                    <button class="btnFilter mx-2" type="button">Najpredávanejšie</button>
-                    <button class="btnFilter mx-2" type="button">Najlacnejšie</button>
-                    <button class="btnFilter mx-2" type="button">Najdrahšie</button>
+                    <a href="?sort=name_asc" class="sort" class="btnFilter mx-2" type="button">Odporúčané</a>
+                    <a href="?sort=name_desc" class="sort" class="btnFilter mx-2" type="button">Najpredávanejšie</a>
+                    <a href="?sort=price_asc" class="sort" class="btnFilter mx-2" type="button">Najlacnejšie</a>
+                    <a href="?sort=price_desc" class="sort" class="btnFilter mx-2" type="button">Najdrahšie</a>
                 </div>
             </div>
         </div>
@@ -64,18 +65,18 @@
             <div class="row">
                 <div class="card col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-2 col-xxl-2 border-0">
                     <div class="card-body">
-                      <form>
+                      <form class="filter-form">
                         <div class="form-group py-3">
                             <label class="py-2">Cena</label>
                             <div class="input-group">
-                                <input type="number" class="form-control">
+                                <input type="number" class="form-control" name="price_from">
                                 <span class="input-group-text">-</span>
-                                <input type="number" class="form-control">
+                                <input type="number" class="form-control" name="price_to">
                             </div>
                         </div>
                         <div class="form-group">
                           <label class="py-2">Značka</label>
-                          <select class="form-control">
+                          <select class="form-control" name="brand">
                             <option>Všetky značky</option>
                             <option>Adidas</option>
                             <option>Nike</option>
@@ -84,7 +85,7 @@
                         </div>
                         <div class="form-group py-3">
                             <label class="py-2">Farba</label>
-                            <select class="form-control">
+                            <select class="form-control" name="color">
                               <option>Všetky farby</option>
                               <option>Červená</option>
                               <option>Biela</option>
