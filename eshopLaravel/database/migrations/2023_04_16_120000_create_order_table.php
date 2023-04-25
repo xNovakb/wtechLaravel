@@ -13,18 +13,18 @@ return new class extends Migration
     {
         Schema::create('order', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id');
-            $table->foreignId('address_id');
-            $table->foreignId('shipping_id');
-            $table->foreignId('payment_id');
-            $table->string('user_name', 32);
-            $table->string('user_surname', 32);
-            $table->string('user_email', 32);
-            $table->string('user_postalcode', 8);
-            $table->string('user_street', 32);
-            $table->string('user_city', 32);
-            $table->string('user_state', 32);
-            $table->string('user_phone', 16);
+            $table->foreignId('user_id')->nullable();
+            $table->foreignId('address_id')->nullable();
+            $table->foreignId('shipping');
+            $table->foreignId('payment');
+            $table->string('name', 32);
+            $table->string('surname', 32);
+            $table->string('email', 32);
+            $table->string('psc', 8);
+            $table->string('street', 32);
+            $table->string('city', 32);
+            $table->string('country', 32);
+            $table->string('phone', 16);
             $table->timestamps();
         });
     }
