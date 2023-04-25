@@ -6,6 +6,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use App\Models\Shipping;
 use App\Models\Payment;
+use App\Models\Product;
 
 class DatabaseSeeder extends Seeder
 {
@@ -78,6 +79,116 @@ class DatabaseSeeder extends Seeder
             'id' => 4,
             'payment_type' => 'Prevod na účet',
             'price' => 1.00
+        ]);
+
+        Product::create([
+            'name' => 'Rifle',
+            'description' => 'Rifle s kratkym rukavom',
+            'price' => 10,
+            'category_id' => 'Rifle',
+            'brand_id' => 'Adidas',
+            'color_id' => 'červená',
+            'size_id' => 'XS',
+            'sex_id' => 'žena'
+        ]);
+
+        Product::create([
+            'name' => 'Tricko',
+            'description' => 'Tricko s kratkym rukavom',
+            'price' => 13,
+            'category_id' => 'Rifle',
+            'brand_id' => 'Adidas',
+            'color_id' => 'červená',
+            'size_id' => 'XS',
+            'sex_id' => 'muž'
+        ]);
+
+        Product::create([
+            'name' => 'Mikina',
+            'description' => 'Tricko s kratkym rukavom',
+            'price' => 15,
+            'category_id' => 'Mikiny',
+            'brand_id' => 'Adidas',
+            'color_id' => 'červená',
+            'size_id' => 'XS',
+            'sex_id' => 'muž'
+        ]);
+
+        Product::create([
+            'name' => 'Tricko',
+            'description' => 'Tricko s kratkym rukavom',
+            'price' => 10,
+            'category_id' => 'Rifle',
+            'brand_id' => 'Adidas',
+            'color_id' => 'červená',
+            'size_id' => 'XS',
+            'sex_id' => 'muž'
+        ]);
+
+        Product::create([
+            'name' => 'Tricko',
+            'description' => 'Tricko s kratkym rukavom',
+            'price' => 10,
+            'category_id' => 'Rifle',
+            'brand_id' => 'Adidas',
+            'color_id' => 'červená',
+            'size_id' => 'XS',
+            'sex_id' => 'muž'
+        ]);
+
+        Product::create([
+            'name' => 'Tricko',
+            'description' => 'Tricko s kratkym rukavom',
+            'price' => 10,
+            'category_id' => 'Rifle',
+            'brand_id' => 'Adidas',
+            'color_id' => 'červená',
+            'size_id' => 'XS',
+            'sex_id' => 'muž'
+        ]);
+
+        Product::create([
+            'name' => 'Tricko',
+            'description' => 'Tricko s kratkym rukavom',
+            'price' => 10,
+            'category_id' => 'Rifle',
+            'brand_id' => 'Adidas',
+            'color_id' => 'červená',
+            'size_id' => 'XS',
+            'sex_id' => 'muž'
+        ]);
+
+        Product::create([
+            'name' => 'Tricko',
+            'description' => 'Tricko s kratkym rukavom',
+            'price' => 10,
+            'category_id' => 'Rifle',
+            'brand_id' => 'Adidas',
+            'color_id' => 'červená',
+            'size_id' => 'XS',
+            'sex_id' => 'muž'
+        ]);
+
+        Product::create([
+            'name' => 'Tricko',
+            'description' => 'Tricko s kratkym rukavom',
+            'price' => 10,
+            'category_id' => 'Rifle',
+            'brand_id' => 'Adidas',
+            'color_id' => 'červená',
+            'size_id' => 'XS',
+            'sex_id' => 'muž'
+        ]);
+
+        Product::create([
+            'name' => 'Tricko',
+            'description' => 'Tricko s kratkym rukavom',
+            'price' => 10,
+            'category_id' => 'Rifle',
+            'brand_id' => 'Adidas',
+            'color_id' => 'červená',
+            'size_id' => 'XS',
+            'sex_id' => 'muž'
         ]);
     }
 }

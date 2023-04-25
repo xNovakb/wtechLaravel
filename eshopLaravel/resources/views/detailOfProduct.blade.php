@@ -91,11 +91,11 @@
 
             <div class="card border-dark col-md-8">
                 <div class="col-sm-12">
-                    <h2>Kožene topánky</h2>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut ac euismod erat. Duis eu vehicula neque. Morbi ultricies nulla lectus, vitae volutpat nunc congue pharetra. Fusce eu ultricies nisl. Phasellus non tempus leo, nec vehicula enim. Duis et iaculis arcu. Nam tempus quam iaculis, rutrum enim quis, sodales magna. Donec a ultricies lorem. Vivamus pulvinar laoreet lorem, sit amet pharetra orci efficitur dictum. Suspendisse facilisis euismod dui, quis vestibulum enim pellentesque gravida.</p>
-                    <p><strong>Značka:</strong> Adidas</p>
-                    <p><strong>Farba:</strong> Červená</p>
-                    <p><strong>Cena:</strong> 10€</p>
+                    <h2>{{ $product->name }}</h2>
+                    <p>{{ $product->description }}</p>
+                    <p><strong>Značka:</strong> {{ $product->brand_id }}</p>
+                    <p><strong>Farba:</strong> {{ $product->color_id }}</p>
+                    <p><strong>Cena:</strong> {{ $product->price }}</p>
                     <br>
                     <form>
                         <div class="form-group row justify-content-end">

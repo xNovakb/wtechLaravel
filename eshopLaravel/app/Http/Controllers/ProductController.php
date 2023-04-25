@@ -9,6 +9,17 @@ use App\Http\Controllers\Controller;
 
 class ProductController extends Controller
 {
+    public function getProduct(Request $request, $id) {
+        $product = Product::find($id);
+
+        if (!$product) {
+            return response()->json(['error' => 'Product not found.'], 404);
+        }
+    
+        return view('detailOfProduct', ['product' => $product]);
+
+    }
+
     //
     public function getAndSortProductsBy(Request $request) {
         $sort = $request->query('sort');

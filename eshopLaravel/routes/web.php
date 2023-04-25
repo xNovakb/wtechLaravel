@@ -17,16 +17,18 @@ use App\Http\Controllers\ProductController;
 */
 
 // Eshop main page
-Route::get('/products', function () {
+Route::get('/', function () {
     return view('mainPage');
 });
 
-Route::get('/products', [ProductController::class, 'getAndSortProductsBy']);
+Route::get('/', [ProductController::class, 'getAndSortProductsBy']);
 
 // Detail of product
-Route::get('/products/{id}', function () {
+Route::get('/detail/{id}', function () {
     return view('detailOfProduct');
 });
+
+Route::get('/product/{id}', [ProductController::class, 'getProduct']);
 
 // Registration view
 Route::get('/register', [UserController::class, 'register']);
