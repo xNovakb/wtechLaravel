@@ -25,22 +25,28 @@ class ProductController extends Controller
 
             $searchTerm = $request->input('search');
             $sort = $request->input('sort');
-
-            $products = Product::filter(['name', 'description', 'brand_id', 'color_id'], $searchTerm)
-                                ->when($sort == 'name_asc', function($query) {
-                                    return $query->orderBy('name', 'asc');
-                                })
-                                ->when($sort == 'name_desc', function($query) {
-                                    return $query->orderBy('name', 'desc');
-                                })
-                                ->when($sort == 'price_asc', function($query) {
-                                    return $query->orderBy('price', 'asc');
-                                })
-                                ->when($sort == 'price_desc', function($query) {
-                                    return $query->orderBy('price', 'desc');
-                                })
-                                ->simplePaginate(8);
-
+            $filters = [
+                'price_from' => $request->input('price_from'),
+                'price_to' => $request->input('price_to'),
+                'color' => $request->input('color'),
+                'brand' => $request->input('brand'),
+            ];
+            
+            $products = Product::filter(['name', 'description', 'brand_id', 'color_id'], $searchTerm, $filters)
+                            ->when($sort == 'name_asc', function($query) {
+                                return $query->orderBy('name', 'asc');
+                            })
+                            ->when($sort == 'name_desc', function($query) {
+                                return $query->orderBy('name', 'desc');
+                            })
+                            ->when($sort == 'price_asc', function($query) {
+                                return $query->orderBy('price', 'asc');
+                            })
+                            ->when($sort == 'price_desc', function($query) {
+                                return $query->orderBy('price', 'desc');
+                            })
+                            ->simplePaginate(8);
+            
             $brands = Product::distinct('brand_id')->pluck('brand_id');
             $colors = Product::distinct('color_id')->pluck('color_id');
             return view('mainPage', ['products' => $products, 'brands' => $brands, 'colors' => $colors]);

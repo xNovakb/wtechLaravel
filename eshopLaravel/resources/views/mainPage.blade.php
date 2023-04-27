@@ -154,7 +154,7 @@
 
         <footer>
             <div>
-                {{ $products->appends(['search' => request('search')])->links() }}
+                {{ $products->appends(['search' => request('search'), 'sort' => request('sort'), 'price_from' => request('price_from'), 'price_to' => request('price_to'), 'color' => request('color'), 'brand' => request('brand')])->links() }}
             </div>
         </footer>
         

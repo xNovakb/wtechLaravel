@@ -25,12 +25,33 @@ class Product extends Model
         return $this->belongsToMany(User::class, 'user_product');
     }
 
-    public function scopeFilter($query, $columns, $searchTerm) {
-        foreach ($columns as $column) {
-            $query->orWhere($column, 'LIKE', '%' . $searchTerm . '%');
+    public function scopeFilter($query, $columns, $searchTerm, $filters) {
+        if($searchTerm) {
+            foreach ($columns as $column) {
+                $query->orWhere($column, 'LIKE', '%' . $searchTerm . '%');
+            }
+        
+            return $query;
+        }
+
+        if ($filters['price_from'] && $filters['price_to']) {
+            $query->whereBetween('price', [$filters['price_from'], $filters['price_to']]);
+        } else if ($filters['price_from']) {
+            $query->where('price', '>=', $filters['price_from']);
+        } else if ($filters['price_to']) {
+            $query->where('price', '<=', $filters['price_to']);
+        }
+    
+        if ($filters['color']) {
+            $query->where('color_id', $filters['color']);
+        }
+    
+        if ($filters['brand']) {
+            $query->where('brand_id', $filters['brand']);
         }
     
         return $query;
+
     }
 
 }
