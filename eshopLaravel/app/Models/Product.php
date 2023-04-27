@@ -24,4 +24,13 @@ class Product extends Model
     {
         return $this->belongsToMany(User::class, 'user_product');
     }
+
+    public function scopeFilter($query, $columns, $searchTerm) {
+        foreach ($columns as $column) {
+            $query->orWhere($column, 'LIKE', '%' . $searchTerm . '%');
+        }
+    
+        return $query;
+    }
+
 }

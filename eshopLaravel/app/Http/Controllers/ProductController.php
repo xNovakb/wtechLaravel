@@ -22,28 +22,24 @@ class ProductController extends Controller
 
     //
     public function getAndSortProductsBy(Request $request) {
-        $sort = $request->query('sort');
 
-        switch ($sort) {
-            case 'name_asc':
-                $products = Product::orderBy('name', 'asc')->get();
-                break;
-            case 'name_desc':
-                $products = Product::orderBy('name', 'desc')->get();
-                break;
-            case 'price_asc':
-                $products = Product::orderBy('price', 'asc')->get();
-                break;
-            case 'price_desc':
-                $products = Product::orderBy('price', 'desc')->get();
-                break;
-            default:
-                $products = Product::all();
-                break;
-        }
+            $searchTerm = $request->input('search');
+            $sort = $request->input('sort');
 
-        Log::info($products);
-    
-        return view('mainPage', ['products' => $products]);
+            $products = Product::filter(['name', 'description', 'brand_id', 'color_id'], $searchTerm)
+                                ->when($sort == 'name_asc', function($query) {
+                                    return $query->orderBy('name', 'asc');
+                                })
+                                ->when($sort == 'name_desc', function($query) {
+                                    return $query->orderBy('name', 'desc');
+                                })
+                                ->when($sort == 'price_asc', function($query) {
+                                    return $query->orderBy('price', 'asc');
+                                })
+                                ->when($sort == 'price_desc', function($query) {
+                                    return $query->orderBy('price', 'desc');
+                                })
+                                ->simplePaginate(8);
+            return view('mainPage', ['products' => $products]);
     }
 }

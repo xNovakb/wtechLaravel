@@ -19,8 +19,8 @@
                 <div class="container-fluid justify-content-center px-4">
                   <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <div class="d-flex align-items-center flex-grow-1 justify-content-end">
-                      <form class="d-flex col-10">
-                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                      <form class="d-flex col-10" action="/" method="GET">
+                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="search">
                         <button class="btn" type="submit">
                           <i class="zmdi zmdi-search fs-2"></i>
                         </button>
@@ -53,11 +53,11 @@
         <div class="container-fluid">
             <div class="row pb-3">
                 <div class="col d-none d-sm-flex justify-content-center">
-                    <a href="?sort=name_asc" class="sort" class="btnFilter mx-2" type="button">Odporúčané</a>
-                    <a href="?sort=name_desc" class="sort" class="btnFilter mx-2" type="button">Najpredávanejšie</a>
-                    <a href="?sort=price_asc" class="sort" class="btnFilter mx-2" type="button">Najlacnejšie</a>
-                    <a href="?sort=price_desc" class="sort" class="btnFilter mx-2" type="button">Najdrahšie</a>
-                </div>
+                    <a href="?{{ http_build_query(['sort' => 'name_asc'] + request()->all()) }}" class="sort mx-2" type="button">Odporúčané</a>
+    <a href="?{{ http_build_query(['sort' => 'name_desc'] + request()->all()) }}" class="sort mx-2" type="button">Najpredávanejšie</a>
+    <a href="?{{ http_build_query(['sort' => 'price_asc'] + request()->all()) }}" class="sort mx-2" type="button">Najlacnejšie</a>
+    <a href="?{{ http_build_query(['sort' => 'price_desc'] + request()->all()) }}" class="sort mx-2" type="button">Najdrahšie</a>
+</div>
             </div>
         </div>
 
@@ -153,19 +153,8 @@
         </div>
 
         <footer>
-            <div class="container-fluid">
-                <div class="row justify-content-center">
-                    <div class="col-xs-3 col-sm-3 col-md-2 col-lg-1 col-xl-1 col-xxl-1">
-                        <select class="form-control p-sm-1">
-                            <option class="justify-content-center">8</option>
-                            <option>16</option>
-                            <option>32</option>
-                            <option>64</option>
-                            <option>128</option>
-                            <option>Všetky produkty</option>
-                        </select>
-                    </div>
-                </div>
+            <div>
+                {{ $products->appends(['search' => request('search')])->links() }}
             </div>
         </footer>
         
