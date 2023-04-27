@@ -40,6 +40,9 @@ class ProductController extends Controller
                                     return $query->orderBy('price', 'desc');
                                 })
                                 ->simplePaginate(8);
-            return view('mainPage', ['products' => $products]);
+
+            $brands = Product::distinct('brand_id')->pluck('brand_id');
+            $colors = Product::distinct('color_id')->pluck('color_id');
+            return view('mainPage', ['products' => $products, 'brands' => $brands, 'colors' => $colors]);
     }
 }

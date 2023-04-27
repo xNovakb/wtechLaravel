@@ -65,7 +65,7 @@
             <div class="row">
                 <div class="card col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-2 col-xxl-2 border-0">
                     <div class="card-body">
-                      <form class="filter-form">
+                      <form class="filter-form" action="/" method="GET">
                         <div class="form-group py-3">
                             <label class="py-2">Cena</label>
                             <div class="input-group">
@@ -77,19 +77,19 @@
                         <div class="form-group">
                           <label class="py-2">Značka</label>
                           <select class="form-control" name="brand">
-                            <option>Všetky značky</option>
-                            <option>Adidas</option>
-                            <option>Nike</option>
-                            <option>Puma</option>
+                            <option> </option>
+                            @foreach($brands as $brand)
+                                <option value="{{ $brand }}">{{ $brand }}</option>
+                            @endforeach
                           </select>
                         </div>
                         <div class="form-group py-3">
                             <label class="py-2">Farba</label>
                             <select class="form-control" name="color">
-                              <option>Všetky farby</option>
-                              <option>Červená</option>
-                              <option>Biela</option>
-                              <option>čierna</option>
+                                <option> </option>
+                                @foreach($colors as $color)
+                                    <option value="{{ $color }}">{{ $color }}</option>
+                                @endforeach
                             </select>
                         </div>
                         <div class="form-group py-3">
