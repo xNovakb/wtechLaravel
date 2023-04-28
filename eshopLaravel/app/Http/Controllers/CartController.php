@@ -5,24 +5,66 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Shipping;
+use App\Models\Product;
 use App\Models\Payment;
 use App\Models\Address;
 use App\Models\Order;
 use DB;
+use Session;
 
 class CartController extends Controller
 {
     //show summary
     public function summary(Request $request, $user_id) {
-        $products = DB::table('user_product')
-                            ->join('product', 'product.id', '=', 'user_product.product_id')
-                            ->select('product.*')
-                            ->where('user_product.user_id', '=', $user_id)
-                            ->get();
+        if ($user_id == 0){
+            $data = Session::get('added-items');
+            $products = array();
 
-        return view('cart.summary', [
-            'products' => $products
-        ]);
+            foreach($data as $key => $value) {
+                $id = $value['item_id'];
+                $new_item = Product::find($id);
+
+                $products[] = [
+                    'id' => $id,
+                    'name' => $new_item->name,
+                    'description' => $new_item->description,
+                    'price' => $new_item->price,
+                    'category_id' => $new_item->category_id,
+                    'brand_id' => $new_item->brand_id,
+                    'color_id' => $new_item->color_id,
+                    'size_id' => $new_item->size_id,
+                    'sex_id' => $new_item->sex_id,
+                    'quantity' => $value['item_quantity']
+                ];
+            }
+            return view('cart.summary', [
+                'products' => $products
+            ]);
+        }else{
+            $items = DB::table('user_product')
+                                ->join('product', 'product.id', '=', 'user_product.product_id')
+                                ->select('product.*', 'user_product.quantity')
+                                ->where('user_product.user_id', '=', $user_id)
+                                ->get();
+            foreach($items as $product) {
+
+                $products[] = [
+                    'id' => $product->id,
+                    'name' => $product->name,
+                    'description' => $product->description,
+                    'price' => $product->price,
+                    'category_id' => $product->category_id,
+                    'brand_id' => $product->brand_id,
+                    'color_id' => $product->color_id,
+                    'size_id' => $product->size_id,
+                    'sex_id' => $product->sex_id,
+                    'quantity' => $product->quantity
+                ];
+            }
+            return view('cart.summary', [
+                'products' => $products
+            ]);
+        }
     }
 
     //delete item from cart

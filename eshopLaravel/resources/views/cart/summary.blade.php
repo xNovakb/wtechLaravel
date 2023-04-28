@@ -62,25 +62,25 @@
             @endphp
             @unless (count($products) == 0)
 
-            @foreach ($products as $product)
+            @foreach ($products as $key => $value)
             <div class="row mb-4">
                 <div class="col-12 col-sm d-flex justify-content-center p-1">
                     <img src="https://www.celiostore.sk/assets/files/catalog/item-pictures/thumbs/1500x2000c/b0777616-541e-4be2-b54c-d034bd2383cd-1100236-0.webp">
                 </div>
                 <div class="col-12 col-sm d-flex align-items-center justify-content-center p-1">
-                    <a>{{$product->name}}</a>
+                    <a>{{$value['name']}}</a>
                 </div>
                 <div class="col-12 col-sm-1 d-flex align-items-center justify-content-center p-1">
-                    <input type="number" placeholder="1" class="item-number">
+                    <input type="number" placeholder="{{$value['quantity']}}" class="item-number">
                 </div>
                 <div class="col d-none d-md-block">
 
                 </div>
                 <div class="col-12 col-sm d-flex align-items-center justify-content-center p-1">
-                    <a>{{$product->price}}€</a>
+                    <a>{{$value['price']}}€</a>
                 </div>
                 <div class="col-12 col-sm-1 d-flex align-items-center justify-content-center p-1">
-                    <button type="button" class="btn btn-danger" onclick="location.href='/cart/del_cart_item/{{$user_id}}/{{$product->id}}'">X</button>
+                    <button type="button" class="btn btn-danger" onclick="location.href='/cart/del_cart_item/{{$user_id}}/{{$value['id']}}'">X</button>
                 </div>
             </div>
             @endforeach

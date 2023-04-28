@@ -6,6 +6,7 @@ use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
+use Session;
 
 class ProductController extends Controller
 {
@@ -50,5 +51,50 @@ class ProductController extends Controller
             $brands = Product::distinct('brand_id')->pluck('brand_id');
             $colors = Product::distinct('color_id')->pluck('color_id');
             return view('mainPage', ['products' => $products, 'brands' => $brands, 'colors' => $colors]);
+    }
+
+    public function addProduct(Request $request, $product_id) {
+        if (Session::has('added-items')) {
+            Session::push('added-items', [
+                'item_id' => $product_id,
+                'item_quantity' => $request->quantity
+            ]);
+
+            $array = Session::get('added-items');
+            $total = array();
+
+            foreach ($array as $key => $value) {
+                $id = $value['item_id'];
+                $quantity = $value['item_quantity'];
+                
+                if (!isset($total[$id])) 
+                {
+                    $total[$id] = 0;
+                }
+                
+                $total[$id] += $quantity;
+            };
+
+            $items = array();
+
+            foreach($total as $item_id => $item_quantity) {
+                $items[] = array(
+                    'item_id' => $item_id,
+                    'item_quantity' => $item_quantity
+                    );
+            };
+
+            Session::put('added-items', $items);
+        }else{
+            Session::put('added-items', [
+                0 => [
+                    'item_id' => $product_id,
+                    'item_quantity' => $request->quantity
+                ]
+            ]);
+        }
+        
+        $product = Product::find($product_id);
+        return view('detailOfProduct', ['product' => $product]);
     }
 }

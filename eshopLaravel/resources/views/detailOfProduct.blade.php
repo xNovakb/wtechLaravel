@@ -25,7 +25,7 @@
                 </div>
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                   <li class="nav-item">
-                    <a class="nav-link" href="#">
+                    <a class="nav-link" href="/cart/summary/{{0}}">
                       <i class="zmdi zmdi-shopping-cart-plus fs-2"></i>
                     </a>
                   </li>
@@ -97,9 +97,10 @@
                     <p><strong>Farba:</strong> {{ $product->color_id }}</p>
                     <p><strong>Cena:</strong> {{ $product->price }}</p>
                     <br>
-                    <form>
+                    <form action="/add/{{$product->id}}" method="POST">
+                      @csrf
                         <div class="form-group row justify-content-end">
-                        <input class="col-sm-2 col-md-4" type="number" class="form-control" id="quantity" min="1" max="10" value="1">
+                        <input class="col-sm-2 col-md-4" type="number" class="form-control" id="quantity" min="1" max="10" value="1" name="quantity">
                         <div>
                             <button type="submit" class="btn btn-success">Vložiť do košíka</button>
                         </div>
