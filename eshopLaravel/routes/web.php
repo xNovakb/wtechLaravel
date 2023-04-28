@@ -54,7 +54,8 @@ Route::prefix('users')->group(function () {
 
 //Cart prefix
 Route::prefix('cart')->group(function () {
-    Route::get('/summary', [CartController::class, 'summary']);
+    Route::get('/summary/{user_id}', [CartController::class, 'summary']);
+    Route::get('/del_cart_item/{user_id}/{product_id}', [CartController::class, 'delete']);
     Route::get('/shipping', [CartController::class, 'shipping']);
     Route::post('/payment', [CartController::class, 'payment']);
     Route::post('/info', [CartController::class, 'info']);

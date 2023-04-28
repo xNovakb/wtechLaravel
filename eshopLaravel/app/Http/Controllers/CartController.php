@@ -13,8 +13,29 @@ use DB;
 class CartController extends Controller
 {
     //show summary
-    public function summary() {
-        return view('cart.summary');
+    public function summary(Request $request, $user_id) {
+        $products = DB::table('user_product')
+                            ->join('product', 'product.id', '=', 'user_product.product_id')
+                            ->select('product.*')
+                            ->where('user_product.user_id', '=', $user_id)
+                            ->get();
+
+        return view('cart.summary', [
+            'products' => $products
+        ]);
+    }
+
+    //delete item from cart
+    public function delete(Request $request, $user_id, $product_id) {
+        DB::table('user_product')->where([['user_id', '=', $user_id],['product_id', '=', $product_id]])->delete();
+        $products = DB::table('user_product')
+                            ->join('product', 'product.id', '=', 'user_product.product_id')
+                            ->select('product.*')
+                            ->where('user_product.user_id', '=', $user_id)
+                            ->get();
+        return view('cart.summary', [
+            'products' => $products
+        ]);
     }
     //show shipping
     public function shipping() {

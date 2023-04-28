@@ -54,12 +54,21 @@
             </div>
         </nav>
         <main class="container p-4 overflow-auto">
+            @php
+                $user_id = 0;
+                try {
+                    $user_id = auth()->user()->id;
+                } catch (Throwable $e){};
+            @endphp
+            @unless (count($products) == 0)
+
+            @foreach ($products as $product)
             <div class="row mb-4">
                 <div class="col-12 col-sm d-flex justify-content-center p-1">
                     <img src="https://www.celiostore.sk/assets/files/catalog/item-pictures/thumbs/1500x2000c/b0777616-541e-4be2-b54c-d034bd2383cd-1100236-0.webp">
                 </div>
                 <div class="col-12 col-sm d-flex align-items-center justify-content-center p-1">
-                    <a>Cierna mikina</a>
+                    <a>{{$product->name}}</a>
                 </div>
                 <div class="col-12 col-sm-1 d-flex align-items-center justify-content-center p-1">
                     <input type="number" placeholder="1" class="item-number">
@@ -68,32 +77,15 @@
 
                 </div>
                 <div class="col-12 col-sm d-flex align-items-center justify-content-center p-1">
-                    <a>Na sklade v 4 predajniach</a>
+                    <a>{{$product->price}}€</a>
                 </div>
                 <div class="col-12 col-sm-1 d-flex align-items-center justify-content-center p-1">
-                    <button type="button" class="btn btn-danger">X</button>
+                    <button type="button" class="btn btn-danger" onclick="location.href='/cart/del_cart_item/{{$user_id}}/{{$product->id}}'">X</button>
                 </div>
             </div>
-            <div class="row mb-4">
-                <div class="col-12 col-sm d-flex justify-content-center p-1">
-                    <img src="https://www.celiostore.sk/assets/files/catalog/item-pictures/thumbs/1500x2000c/b0777616-541e-4be2-b54c-d034bd2383cd-1100236-0.webp">
-                </div>
-                <div class="col-12 col-sm d-flex align-items-center justify-content-center p-1">
-                    <a>Cierna mikina</a>
-                </div>
-                <div class="col-12 col-sm-1 d-flex align-items-center justify-content-center p-1">
-                    <input type="number" placeholder="1" class="item-number">
-                </div>
-                <div class="col d-none d-md-block">
-
-                </div>
-                <div class="col-12 col-sm d-flex align-items-center justify-content-center p-1">
-                    <a>Na sklade v 4 predajniach</a>
-                </div>
-                <div class="col-12 col-sm-1 d-flex align-items-center justify-content-center p-1">
-                    <button type="button" class="btn btn-danger">X</button>
-                </div>
-            </div>
+            @endforeach
+                
+            @endunless
         </main>
         <div class="container pt-3">
             <div class="row">
