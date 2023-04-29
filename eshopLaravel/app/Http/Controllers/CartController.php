@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Models\Shipping;
 use App\Models\Product;
@@ -15,8 +16,9 @@ use Session;
 class CartController extends Controller
 {
     //show summary
-    public function summary(Request $request, $user_id) {
-        if ($user_id == 0){
+    public function summary(Request $request) {
+        $user_id = Auth::id();
+        if ($user_id == null) {
             $data = Session::get('added-items');
             $products = array();
 
@@ -46,6 +48,8 @@ class CartController extends Controller
                                 ->select('product.*', 'user_product.quantity')
                                 ->where('user_product.user_id', '=', $user_id)
                                 ->get();
+            
+            $products = array();
             foreach($items as $product) {
 
                 $products[] = [
@@ -68,17 +72,36 @@ class CartController extends Controller
     }
 
     //delete item from cart
-    public function delete(Request $request, $user_id, $product_id) {
-        DB::table('user_product')->where([['user_id', '=', $user_id],['product_id', '=', $product_id]])->delete();
-        $products = DB::table('user_product')
-                            ->join('product', 'product.id', '=', 'user_product.product_id')
-                            ->select('product.*')
-                            ->where('user_product.user_id', '=', $user_id)
-                            ->get();
-        return view('cart.summary', [
-            'products' => $products
-        ]);
+    public function delete(Request $request, $product_id) {
+        $user_id = Auth::id();
+        if ($user_id) {
+            DB::table('user_product')->where([['user_id', '=', $user_id],['product_id', '=', $product_id]])->delete();
+            $products = DB::table('user_product')
+                                ->join('product', 'product.id', '=', 'user_product.product_id')
+                                ->select('product.*')
+                                ->where('user_product.user_id', '=', $user_id)
+                                ->get();
+            return view('cart.summary', [
+                'products' => $products
+            ]);
+        }else{
+            $data = Session::get('added-items');
+            $new = array();
+            foreach ($data as $key => $value) {
+                if ($value['item_id'] != $product_id){
+                    $id = $value['item_id'];
+                    $quantity = $value['item_quantity'];
+                    $new[] = array(
+                        'item_id' => $id,
+                        'item_quantity' => $quantity,
+                    );
+                }
+            }
+            Session::put('added-items', $new);
+            return redirect('/cart/summary');
+        }
     }
+
     //show shipping
     public function shipping() {
         return view('cart.shipping', [

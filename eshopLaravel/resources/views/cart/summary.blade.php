@@ -54,12 +54,6 @@
             </div>
         </nav>
         <main class="container p-4 overflow-auto">
-            @php
-                $user_id = 0;
-                try {
-                    $user_id = auth()->user()->id;
-                } catch (Throwable $e){};
-            @endphp
             @unless (count($products) == 0)
 
             @foreach ($products as $key => $value)
@@ -73,7 +67,7 @@
                         <a>{{$value['name']}}</a>
                     </div>
                     <div class="col-12 col-sm-1 d-flex align-items-center justify-content-center p-1">
-                        <input type="number" placeholder="{{$value['quantity']}}" class="item-number" name="quantity" value="{{ $value['quantity'] }}"" onchange="this.form.submit()">
+                        <input type="number" placeholder="{{$value['quantity']}}" class="item-number" name="quantity" value="{{ $value['quantity'] }}" onchange="this.form.submit()">
                     </div>
                     <div class="col d-none d-md-block">
     
@@ -82,7 +76,7 @@
                         <a>{{$value['price']}}€</a>
                     </div>
                     <div class="col-12 col-sm-1 d-flex align-items-center justify-content-center p-1">
-                        <button type="button" class="btn btn-danger" onclick="location.href='/cart/del_cart_item/{{$user_id}}/{{$value['id']}}'">X</button>
+                        <button type="button" class="btn btn-danger" onclick="location.href='/cart/del_cart_item/{{$value['id']}}'">X</button>
                     </div>
                 </div>
             </form>

@@ -25,13 +25,36 @@ class ProductController extends Controller
 
     public function updateQuantity(Request $request, $productId) {
 
-        $quantity = $request->input('quantity');
+        $user_id = Auth::id();
 
-        $userProduct = UserProduct::find($productId);
-        $userProduct->quantity = $quantity;
-        $userProduct->save();
+        if ($user_id){
+            $quantity = $request->input('quantity');
 
-        return redirect()->back();
+            $userProduct = UserProduct::find($productId);
+            $userProduct->quantity = $quantity;
+            $userProduct->save();
+        }else{
+            $array = Session::get('added-items');
+            $new = array();
+            foreach ($array as $key => $value) {
+                if ($value['item_id'] == $productId){
+                    $id = $value['item_id'];
+                    $quantity = $request->input('quantity');
+                }else{
+                    $id = $value['item_id'];
+                    $quantity = $value['item_quantity'];
+                }
+                $new[] = array(
+                    'item_id' => $id,
+                    'item_quantity' => $quantity,
+                );
+            }
+            Session::put('added-items', $new);
+        }
+
+
+
+        return redirect('/cart/summary');
     }
 
     //

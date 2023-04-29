@@ -25,7 +25,7 @@
                 </div>
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                   <li class="nav-item">
-                    <a class="nav-link" href="/cart/summary/{{0}}">
+                    <a class="nav-link" href="/cart/summary">
                       <i class="zmdi zmdi-shopping-cart-plus fs-2"></i>
                     </a>
                   </li>
