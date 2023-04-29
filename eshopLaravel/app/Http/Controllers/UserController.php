@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use Session;
 use App\Models\User;
+use App\Models\UserProduct;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use App\Http\Controllers\Controller;
@@ -33,7 +35,33 @@ class UserController extends Controller
 
         auth()->login($user);
 
-        return redirect('/products');
+        if(Session::has('added-items')) {
+            $user_id = auth()->user()->id;
+            $array = Session::get('added-items');
+
+            foreach ($array as $key => $value) {
+
+                $product_id = $value['item_id'];
+                $quantity = $value['item_quantity'];
+                
+                $userProduct = UserProduct::where('user_id', $user_id)
+                                        ->where('product_id', $product_id)
+                                        ->first();
+                
+                if ($userProduct) {
+                    $userProduct->quantity += $quantity;
+                    $userProduct->save();
+                } else {
+                    UserProduct::create([
+                        'user_id' => $user_id,
+                        'quantity' => $quantity,
+                        'product_id' => $product_id,
+                    ]);
+                }
+            };
+        }
+
+        return redirect('/');
     }
 
     //Logout user
@@ -60,7 +88,32 @@ class UserController extends Controller
 
         if(auth()->attempt($formFields)) {
             $request->session()->regenerate();
-
+            
+            if(Session::has('added-items')) {
+                $user_id = auth()->user()->id;
+                $array = Session::get('added-items');
+    
+                foreach ($array as $key => $value) {
+    
+                    $product_id = $value['item_id'];
+                    $quantity = $value['item_quantity'];
+                    
+                    $userProduct = UserProduct::where('user_id', $user_id)
+                                            ->where('product_id', $product_id)
+                                            ->first();
+                    
+                    if ($userProduct) {
+                        $userProduct->quantity += $quantity;
+                        $userProduct->save();
+                    } else {
+                        UserProduct::create([
+                            'user_id' => $user_id,
+                            'quantity' => $quantity,
+                            'product_id' => $product_id,
+                        ]);
+                    }
+                };
+            }
             return redirect('/products');
         }
     }

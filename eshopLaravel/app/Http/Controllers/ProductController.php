@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use Session;
 use App\Models\Product;
+use App\Models\UserProduct;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
-use Session;
+use Illuminate\Support\Facades\Auth;
 
 class ProductController extends Controller
 {
@@ -54,6 +56,28 @@ class ProductController extends Controller
     }
 
     public function addProduct(Request $request, $product_id) {
+        
+        $user_id = Auth::id();
+        if($user_id) {
+            $quantity = $request->quantity;
+            $product_id = $request->product_id;
+            
+            $userProduct = UserProduct::where('user_id', $user_id)
+                                    ->where('product_id', $product_id)
+                                    ->first();
+            
+            if ($userProduct) {
+                $userProduct->quantity += $quantity;
+                $userProduct->save();
+            } else {
+                UserProduct::create([
+                    'user_id' => $user_id,
+                    'quantity' => $quantity,
+                    'product_id' => $product_id,
+                ]);
+            }
+        }
+
         if (Session::has('added-items')) {
             Session::push('added-items', [
                 'item_id' => $product_id,
