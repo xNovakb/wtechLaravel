@@ -71,7 +71,7 @@ class UserController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect('/products');
+        return redirect('/');
     }
 
     //Login view
@@ -114,7 +114,7 @@ class UserController extends Controller
                     }
                 };
             }
-            return redirect('/products');
+            return redirect('/');
         }
     }
 

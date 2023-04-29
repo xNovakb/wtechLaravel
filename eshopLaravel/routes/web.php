@@ -30,6 +30,8 @@ Route::get('/detail/{id}', function () {
 
 Route::get('/product/{id}', [ProductController::class, 'getProduct']);
 
+Route::post('/updateQuantity/{productId}', [ProductController::class, 'updateQuantity']);
+
 Route::get('/brands', [ProductController::class, 'getAllBrands']);
 
 Route::get('/colors', [ProductController::class, 'getAllColors']);

@@ -63,26 +63,29 @@
             @unless (count($products) == 0)
 
             @foreach ($products as $key => $value)
-            <div class="row mb-4">
-                <div class="col-12 col-sm d-flex justify-content-center p-1">
-                    <img src="https://www.celiostore.sk/assets/files/catalog/item-pictures/thumbs/1500x2000c/b0777616-541e-4be2-b54c-d034bd2383cd-1100236-0.webp">
+            <form method="POST" action="/updateQuantity/{{$value['id']}}">
+                @csrf
+                <div class="row mb-4">
+                    <div class="col-12 col-sm d-flex justify-content-center p-1">
+                        <img src="https://www.celiostore.sk/assets/files/catalog/item-pictures/thumbs/1500x2000c/b0777616-541e-4be2-b54c-d034bd2383cd-1100236-0.webp">
+                    </div>
+                    <div class="col-12 col-sm d-flex align-items-center justify-content-center p-1">
+                        <a>{{$value['name']}}</a>
+                    </div>
+                    <div class="col-12 col-sm-1 d-flex align-items-center justify-content-center p-1">
+                        <input type="number" placeholder="{{$value['quantity']}}" class="item-number" name="quantity" value="{{ $value['quantity'] }}"" onchange="this.form.submit()">
+                    </div>
+                    <div class="col d-none d-md-block">
+    
+                    </div>
+                    <div class="col-12 col-sm d-flex align-items-center justify-content-center p-1">
+                        <a>{{$value['price']}}€</a>
+                    </div>
+                    <div class="col-12 col-sm-1 d-flex align-items-center justify-content-center p-1">
+                        <button type="button" class="btn btn-danger" onclick="location.href='/cart/del_cart_item/{{$user_id}}/{{$value['id']}}'">X</button>
+                    </div>
                 </div>
-                <div class="col-12 col-sm d-flex align-items-center justify-content-center p-1">
-                    <a>{{$value['name']}}</a>
-                </div>
-                <div class="col-12 col-sm-1 d-flex align-items-center justify-content-center p-1">
-                    <input type="number" placeholder="{{$value['quantity']}}" class="item-number">
-                </div>
-                <div class="col d-none d-md-block">
-
-                </div>
-                <div class="col-12 col-sm d-flex align-items-center justify-content-center p-1">
-                    <a>{{$value['price']}}€</a>
-                </div>
-                <div class="col-12 col-sm-1 d-flex align-items-center justify-content-center p-1">
-                    <button type="button" class="btn btn-danger" onclick="location.href='/cart/del_cart_item/{{$user_id}}/{{$value['id']}}'">X</button>
-                </div>
-            </div>
+            </form>
             @endforeach
                 
             @endunless

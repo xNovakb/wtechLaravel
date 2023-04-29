@@ -23,6 +23,17 @@ class ProductController extends Controller
 
     }
 
+    public function updateQuantity(Request $request, $productId) {
+
+        $quantity = $request->input('quantity');
+
+        $userProduct = UserProduct::find($productId);
+        $userProduct->quantity = $quantity;
+        $userProduct->save();
+
+        return redirect()->back();
+    }
+
     //
     public function getAndSortProductsBy(Request $request) {
 
