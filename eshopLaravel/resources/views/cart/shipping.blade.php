@@ -85,14 +85,14 @@
                 </div>
                 <div class="col-4 d-none d-lg-block">
                     <div class="row">
-                        <div class="col-12 d-flex justify-content-around align-items-center text-center mb-3">
-                            <img src="https://www.celiostore.sk/assets/files/catalog/item-pictures/thumbs/1500x2000c/b0777616-541e-4be2-b54c-d034bd2383cd-1100236-0.webp">
-                            <h3>Cierna mikina</h3>
-                        </div>
-                        <div class="col-12 d-flex justify-content-around align-items-center text-center mb-3">
-                            <img src="https://www.celiostore.sk/assets/files/catalog/item-pictures/thumbs/1500x2000c/b0777616-541e-4be2-b54c-d034bd2383cd-1100236-0.webp">
-                            <h3>Cierna mikina</h3>
-                        </div>
+                        @unless (count($products) == 0)
+                            @foreach ($products as $key => $value)
+                            <div class="col-12 d-flex justify-content-around align-items-center text-center mb-3">
+                                <img src="https://www.celiostore.sk/assets/files/catalog/item-pictures/thumbs/1500x2000c/b0777616-541e-4be2-b54c-d034bd2383cd-1100236-0.webp">
+                                <h3>{{$value['name']}}</h3>
+                            </div>
+                            @endforeach
+                        @endunless
                     </div>
                 </div>
             </div>

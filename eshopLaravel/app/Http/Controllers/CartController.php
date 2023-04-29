@@ -14,14 +14,39 @@ use DB;
 use Session;
 
 class CartController extends Controller
-{
-    //show summary
-    public function summary(Request $request) {
-        $user_id = Auth::id();
-        if ($user_id == null) {
-            $data = Session::get('added-items');
-            $products = array();
+{   
+    //load cart items for logged in user from database
+    private function loadFromDB($user_id){
+        $items = DB::table('user_product')
+                            ->join('product', 'product.id', '=', 'user_product.product_id')
+                            ->select('product.*', 'user_product.quantity')
+                            ->where('user_product.user_id', '=', $user_id)
+                            ->get();
+        
+        $products = array();
+        foreach($items as $product) {
 
+            $products[] = [
+                'id' => $product->id,
+                'name' => $product->name,
+                'description' => $product->description,
+                'price' => $product->price,
+                'category_id' => $product->category_id,
+                'brand_id' => $product->brand_id,
+                'color_id' => $product->color_id,
+                'size_id' => $product->size_id,
+                'sex_id' => $product->sex_id,
+                'quantity' => $product->quantity
+            ];
+        }
+        return $products;
+    }
+
+    //load cart items for user that is not logged in from session
+    private function loadFromSession(){
+        $data = Session::get('added-items');
+        $products = array();
+        if ($data){
             foreach($data as $key => $value) {
                 $id = $value['item_id'];
                 $new_item = Product::find($id);
@@ -39,32 +64,19 @@ class CartController extends Controller
                     'quantity' => $value['item_quantity']
                 ];
             }
+        }
+        return $products;
+    }
+    //show summary
+    public function summary() {
+        $user_id = Auth::id();
+        if ($user_id == null) {
+            $products = $this->loadFromSession();
             return view('cart.summary', [
                 'products' => $products
             ]);
         }else{
-            $items = DB::table('user_product')
-                                ->join('product', 'product.id', '=', 'user_product.product_id')
-                                ->select('product.*', 'user_product.quantity')
-                                ->where('user_product.user_id', '=', $user_id)
-                                ->get();
-            
-            $products = array();
-            foreach($items as $product) {
-
-                $products[] = [
-                    'id' => $product->id,
-                    'name' => $product->name,
-                    'description' => $product->description,
-                    'price' => $product->price,
-                    'category_id' => $product->category_id,
-                    'brand_id' => $product->brand_id,
-                    'color_id' => $product->color_id,
-                    'size_id' => $product->size_id,
-                    'sex_id' => $product->sex_id,
-                    'quantity' => $product->quantity
-                ];
-            }
+            $products = $this->loadFromDB($user_id);
             return view('cart.summary', [
                 'products' => $products
             ]);
@@ -104,32 +116,80 @@ class CartController extends Controller
 
     //show shipping
     public function shipping() {
-        return view('cart.shipping', [
-            'shippings' => Shipping::all()
-        ]);
+        $user_id = Auth::id();
+        if ($user_id == null) {
+            $products = $this->loadFromSession();
+            return view('cart.shipping', [
+                'shippings' => Shipping::all(),
+                'products' => $products
+            ]);
+        }else{
+            $products = $this->loadFromDB($user_id);
+            return view('cart.shipping', [
+                'shippings' => Shipping::all(),
+                'products' => $products
+            ]);
+        }
+        
     }
     //show payment
     public function payment(Request $request) {
-        return view('cart.payment', [
-            'payments' => Payment::all(),
-            'shipping_id' => $request->shipping
-        ]);
+        $user_id = Auth::id();
+        if ($user_id == null) {
+            $products = $this->loadFromSession();
+            return view('cart.payment', [
+                'payments' => Payment::all(),
+                'shipping_id' => $request->shipping,
+                'products' => $products
+            ]);
+        }else{
+            $products = $this->loadFromDB($user_id);
+            return view('cart.payment', [
+                'payments' => Payment::all(),
+                'shipping_id' => $request->shipping,
+                'products' => $products
+            ]);
+        }
     }
     //show info
     public function info(Request $request) {
-        return view('cart.info', [
-            'shipping_id' => $request->shipping,
-            'payment_id' => $request->payment
-        ]);
+        $user_id = Auth::id();
+        if ($user_id == null) {
+            $products = $this->loadFromSession();
+            return view('cart.info', [
+                'shipping_id' => $request->shipping,
+                'payment_id' => $request->payment,
+                'products' => $products
+            ]);
+        }else{
+            $products = $this->loadFromDB($user_id);
+            return view('cart.info', [
+                'shipping_id' => $request->shipping,
+                'payment_id' => $request->payment,
+                'products' => $products
+            ]);
+        }
     }
     //store order
     public function store(Request $request) {
         switch ($request->input('action')) {
             case 'back':
-                return view('cart.payment', [
-                    'payments' => Payment::all(),
-                    'shipping_id' => $request->shipping
-                ]);
+                $user_id = Auth::id();
+                if ($user_id == null) {
+                    $products = $this->loadFromSession();
+                    return view('cart.payment', [
+                        'payments' => Payment::all(),
+                        'shipping_id' => $request->shipping,
+                        'products' => $products
+                    ]);
+                }else{
+                    $products = $this->loadFromDB($user_id);
+                    return view('cart.payment', [
+                        'payments' => Payment::all(),
+                        'shipping_id' => $request->shipping,
+                        'products' => $products
+                    ]);
+                }
                 break;
     
             case 'save':

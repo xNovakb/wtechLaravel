@@ -160,19 +160,24 @@
                         <h1>Zhrnutie objednávky</h1>
                     </div>
                     <div class="col" id="summary">
-                        <div class="col-12 d-flex justify-content-between p-3">
-                            <b>Cierna mikina</b>
-                            <a>3 ks</a>
-                            <a>384€</a>
-                        </div>
-                        <div class="col-12 d-flex justify-content-between p-3">
-                            <b>Cierna mikina</b>
-                            <a>1 ks</a>
-                            <a>128€</a>
-                        </div>
+                        @php
+                            $total = 0
+                        @endphp
+                        @unless (count($products) == 0)
+                            @foreach ($products as $key => $value)
+                            <div class="col-12 d-flex justify-content-between p-3">
+                                <b>{{$value['name']}}</b>
+                                <a>{{$value['quantity']}}ks</a>
+                                <a>{{$value['price']}}€</a>
+                            </div>
+                            @php
+                                $total += $value['price']
+                            @endphp
+                            @endforeach
+                        @endunless
                     </div>
                     <div class="row text-end mt-2">
-                        <h2>Spolu: 512€</h2>
+                        <h2>Spolu: {{$total}}€</h2>
                     </div>
                 </div>
             </div>
