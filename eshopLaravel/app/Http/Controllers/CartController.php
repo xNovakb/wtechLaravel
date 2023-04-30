@@ -67,6 +67,7 @@ class CartController extends Controller
         }
         return $products;
     }
+
     //show summary
     public function summary() {
         $user_id = Auth::id();
@@ -130,8 +131,8 @@ class CartController extends Controller
                 'products' => $products
             ]);
         }
-        
     }
+
     //show payment
     public function payment(Request $request) {
         $user_id = Auth::id();
@@ -151,6 +152,7 @@ class CartController extends Controller
             ]);
         }
     }
+
     //show info
     public function info(Request $request) {
         $user_id = Auth::id();
@@ -170,9 +172,11 @@ class CartController extends Controller
             ]);
         }
     }
-    //store order
+
+    //store order TODO: products
     public function store(Request $request) {
         switch ($request->input('action')) {
+            //bol stlaceny button "Späť"
             case 'back':
                 $user_id = Auth::id();
                 if ($user_id == null) {
@@ -191,8 +195,9 @@ class CartController extends Controller
                     ]);
                 }
                 break;
-    
+            //dokoncenie objednavky
             case 'save':
+                //dorucenie na adresu bydliska pouzivatela
                 if ($request->other == "false") {
                     $formFields = $request->validate([
                         'shipping' => 'required',
@@ -206,13 +211,17 @@ class CartController extends Controller
                         'country' => 'required',
                         'phone' => 'required'
                     ]);
+                    //vytvorenie zaznamu adresy
                     Address::create($formFields);
+                    //ziskanie id zaznamu adresy
                     $address_id = DB::table('address')->select('id')->where([
                         ['street', $request->street],
                         ['city', $request->city],
                         ['psc', $request->psc]
                     ])->value('id');
+                    //vytvorenie zaznamu objednavky
                     Order::create($formFields);
+                    //ziskanie id zaznamu objednavky
                     $order_id = DB::table('order')->select('id')->where([
                         ['shipping', $request->shipping],
                         ['payment', $request->payment],
@@ -225,7 +234,9 @@ class CartController extends Controller
                         ['psc', $request->psc],
                         ['country', $request->country]
                     ])->value('id');
+                    //doplnenie idcka adresy do zaznamu objednavky
                     DB::table('order')->where('id', $order_id)->update(['address_id' => $address_id]);
+                //dorucenie na inu adresu 
                 }else{
                     $formFields = $request->validate([
                         'shipping' => 'required',
@@ -242,10 +253,13 @@ class CartController extends Controller
                         'street2' => 'required',
                         'city2' => 'required',
                     ]);
+                    //vytvorenie zaznamu objednavky
                     Order::create($formFields);
+                    //vytvorenie zaznamu adresy a ulozenie idcka
                     $address_id = DB::table('address')->insertGetId(
                         ['psc' => $request->psc2, 'street' => $request->street2, 'city' => $request->city2]
                     );
+                    //ziskanie idcka objednavky
                     $order_id = DB::table('order')->select('id')->where([
                         ['shipping', $request->shipping],
                         ['payment', $request->payment],
@@ -258,6 +272,7 @@ class CartController extends Controller
                         ['psc', $request->psc],
                         ['country', $request->country]
                     ])->value('id');
+                    //doplnenie idcka adresy do zaznamu objednavky
                     DB::table('order')->where('id', $order_id)->update(['address_id' => $address_id]);
                 }
                 dd($request->all());

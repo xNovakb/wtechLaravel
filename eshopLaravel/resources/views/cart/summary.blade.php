@@ -29,7 +29,7 @@
                         <a class="nav-link d-none d-md-inline " href="/">
                             <i class="zmdi zmdi-home fs-2"></i>
                         </a>
-                        <a class="nav-link d-md-none" href="#">Košík</a>
+                        <a class="nav-link d-md-none" href="#">Domov</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link d-none d-md-inline" href="#">

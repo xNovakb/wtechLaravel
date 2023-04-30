@@ -41,3 +41,7 @@ main {
     border: solid;
     border-width: 1px;
 }
+
+.error {
+    color: red;
+}

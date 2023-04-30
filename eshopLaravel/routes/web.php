@@ -58,12 +58,19 @@ Route::post('add/{product_id}', [ProductController::class, 'addProduct']);
 
 //Cart prefix
 Route::prefix('cart')->group(function () {
+    //summary screen
     Route::get('/summary', [CartController::class, 'summary']);
+    //deleting item from cart
     Route::get('/del_cart_item/{product_id}', [CartController::class, 'delete']);
+    //shipping screen
     Route::get('/shipping', [CartController::class, 'shipping']);
+    //payment screen
     Route::post('/payment', [CartController::class, 'payment']);
+    //info screen (coming from payment screen)
     Route::post('/info', [CartController::class, 'info']);
+    //info screen (coming from info screen after field required error)
     Route::get('/info', [CartController::class, 'info']);
+    //creating order in database
     Route::post('/store', [CartController::class, 'store']);
 });
 

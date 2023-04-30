@@ -30,7 +30,7 @@
                         <a class="nav-link d-none d-md-inline " href="/">
                             <i class="zmdi zmdi-home fs-2"></i>
                         </a>
-                        <a class="nav-link d-md-none" href="#">Košík</a>
+                        <a class="nav-link d-md-none" href="#">Domov</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link d-none d-md-inline" href="#">
@@ -74,49 +74,49 @@
                             <input type="text" class="form-information ms-2" name="name" value={{old('name')}}>
                         </div>
                         @error('name')
-                            <p>{{$message}}</p>
+                            <p class="error">{{$message}}</p>
                         @enderror
                         <div class="col-12 d-flex align-items-center justify-content-center sm-justify-content-end  mb-5">
                             <label for="surname" class="form-label">Priezvisko</label>
                             <input type="text" class="form-information ms-2" name="surname" value={{old('surname')}}>
                         </div>
                         @error('surname')
-                            <p>{{$message}}</p>
+                            <p class="error">{{$message}}</p>
                         @enderror
                         <div class="col-12 d-flex align-items-center justify-content-center sm-justify-content-end  mb-5">
                             <label for="email" class="form-label">Email</label>
                             <input type="text" class="form-information ms-2" name="email" value={{old('email')}}>
                         </div>
                         @error('email')
-                            <p>{{$message}}</p>
+                            <p class="error">{{$message}}</p>
                         @enderror
                         <div class="col-12 d-flex align-items-center justify-content-center sm-justify-content-end  mb-5">
                             <label for="psc" class="form-label">PSČ</label>
                             <input type="text" class="form-information ms-2" name="psc" value={{old('psc')}}>
                         </div>
                         @error('psc')
-                            <p>{{$message}}</p>
+                            <p class="error">{{$message}}</p>
                         @enderror
                         <div class="col-12 d-flex align-items-center justify-content-center sm-justify-content-end  mb-5">
                             <label for="street" class="form-label">Ulica</label>
                             <input type="text" class="form-information ms-2" name="street"  value={{old('street')}}>
                         </div>
                         @error('street')
-                            <p>{{$message}}</p>
+                            <p class="error">{{$message}}</p>
                         @enderror
                         <div class="col-12 d-flex align-items-center justify-content-center sm-justify-content-end  mb-5">
                             <label for="city" class="form-label">Mesto</label>
                             <input type="text" class="form-information ms-2" name="city" value={{old('city')}}>
                         </div>
                         @error('city')
-                            <p>{{$message}}</p>
+                            <p class="error">{{$message}}</p>
                         @enderror
                         <div class="col-12 d-flex align-items-center justify-content-center sm-justify-content-end  mb-5">
                             <label for="country" class="form-label">Štát</label>
                             <input type="text" class="form-information ms-2" name="country" value={{old('country')}}>
                         </div>
                         @error('country')
-                            <p>{{$message}}</p>
+                            <p class="error">{{$message}}</p>
                         @enderror
                     </div>
                 </div>
@@ -126,7 +126,7 @@
                         <input type="text" class="form-information ms-2" name="phone" value={{old('phone')}}>
                     </div>
                     @error('phone')
-                            <p>{{$message}}</p>
+                            <p class="error">{{$message}}</p>
                         @enderror
                     <div class="col-12 d-flex align-items-center justify-content-center mb-4">
                         <label for="other" class="form-label">Doručenie na inú adresu</label>
@@ -138,21 +138,21 @@
                         <input type="text" class="form-information ms-2" name="psc2" value={{old('psc2')}}>
                     </div>
                     @error('psc-2')
-                            <p>{{$message}}</p>
+                            <p class="error">{{$message}}</p>
                         @enderror
                     <div class="col-12 d-flex align-items-center justify-content-center sm-justify-content-end  mb-5">
                         <label for="street-2" class="form-label">Ulica</label>
                         <input type="text" class="form-information ms-2" name="street2" value={{old('street2')}}>
                     </div>
                     @error('street-2')
-                            <p>{{$message}}</p>
+                            <p class="error">{{$message}}</p>
                         @enderror
                     <div class="col-12 d-flex align-items-center justify-content-center sm-justify-content-end  mb-5">
                         <label for="city-2" class="form-label">Mesto</label>
                         <input type="text" class="form-information ms-2" name="city2" value={{old('city2')}}>
                     </div>
                     @error('city-2')
-                            <p>{{$message}}</p>
+                            <p class="error">{{$message}}</p>
                         @enderror
                 </div>
                 <div class="col-12 col-lg-6 ps-lg-5">
@@ -171,7 +171,7 @@
                                 <a>{{$value['price']}}€</a>
                             </div>
                             @php
-                                $total += $value['price']
+                                $total += $value['price']*$value['quantity']
                             @endphp
                             @endforeach
                         @endunless
