@@ -144,17 +144,16 @@
                                         <li class="list-inline-item">{{ $product['price'] }}€</li>
                                     </ul>
                                     <a href="#" class="col-8 btn btn-success rounded-6 my-1">Upraviť</a>
-                                    <a href="" wire:click.prevent="deleteProduct({{$product->id}})" class="col-8 btn btn-success rounded-6 my-1">Zmazať</a>
-                                    <!--
-                                    <form method="POST" action="/products/{{ $product->id }}">
+                                    <form method="POST" action="/delete/product/{{$product->id}}">
                                          @csRf
                                          @method("DELETE")
                                          <button class="col-8 btn btn-success rounded-6 my-1">Zmazať</button>
-                                    </form>
-                                    -->
+
+
                                 </div>
                             </div>
                         </div>
+                        </form>
                         @endforeach
                     </div>
                 </div>

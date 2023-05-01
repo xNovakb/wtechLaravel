@@ -77,6 +77,8 @@ Route::prefix('cart')->group(function () {
 
 Route::post('/create/product', [AdminController::class, 'store']);
 
+Route::delete('/delete/product/{id}', [AdminController::class, 'deleteProduct']);
+
 //Admin prefix
 Route::prefix('admin')->group(function () {
     Route::get('/products', function () {
