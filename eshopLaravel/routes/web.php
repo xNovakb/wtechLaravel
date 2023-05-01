@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\AdminController;
 
 /*
 |--------------------------------------------------------------------------
@@ -74,6 +75,7 @@ Route::prefix('cart')->group(function () {
     Route::post('/store', [CartController::class, 'store']);
 });
 
+Route::post('/create/product', [AdminController::class, 'store']);
 
 //Admin prefix
 Route::prefix('admin')->group(function () {
@@ -81,7 +83,19 @@ Route::prefix('admin')->group(function () {
         return view('admin.adminMainPage');
     });
 
+    Route::get('/create', function () {
+        return view('admin.productCreation');
+    });
+
+
+
+    //products with sorting
+    Route::get('/products', [AdminController::class, 'getAndSortProductsBy']);
+/*
     Route::get('/products/{id}', function () {
         return view('admin.productCreation');
     });
+*/
+    //delete product
+    Route::delete('/products/{id}', [AdminController::class, 'deleteProduct']);
 });

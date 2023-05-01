@@ -14,16 +14,18 @@
         <title>Edit produktu</title>
     </head>
     <body>
+
       <div class="container py-5">
-        <form>
+        <form method="POST" action="/create/product">
+            @csrf
           <div class="form-group row py-1">
-            <label for="product" class="col-xs-4 col-sm-4 col-md-3 col-lg-2 col-xl-2 col-xxl-2 col-form-label">Názov produktu</label>
+            <label for="name" class="col-xs-4 col-sm-4 col-md-3 col-lg-2 col-xl-2 col-xxl-2 col-form-label">Názov produktu</label>
             <div class="col-xs-8 col-sm-8 col-md-5 col-lg-6 col-xl-6 col-xxl-6">
-              <input type="text" class="form-control p-sm-1" id="product" placeholder="Zadajte názov produktu">
+              <input type="text" class="form-control p-sm-1" name="name" placeholder="Zadajte názov produktu">
             </div>
-            <label for="size" class="col-xs-4 col-sm-4 col-md-1 col-lg-1 col-xl-1 col-xxl-1 col-form-label">Veľkosť</label>
+            <label for="size_id" class="col-xs-4 col-sm-4 col-md-1 col-lg-1 col-xl-1 col-xxl-1 col-form-label">Veľkosť</label>
             <div class="col-xs-4 col-sm-4 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
-                <select class="form-control p-sm-1" id="size">
+                <select class="form-control p-sm-1" name="size_id">
                   <option>XS</option>
                   <option>S</option>
                   <option>M</option>
@@ -34,44 +36,44 @@
             </div>
           </div>
           <div class="form-group row py-1">
-            <label for="brand" class="col-xs-4 col-sm-4 col-md-3 col-lg-2 col-xl-2 col-xxl-2 col-form-label">Značka</label>
+            <label for="brand_id" class="col-xs-4 col-sm-4 col-md-3 col-lg-2 col-xl-2 col-xxl-2 col-form-label">Značka</label>
             <div class="col-xs-8 col-sm-8 col-md-5 col-lg-6 col-xl-6 col-xxl-6">
-              <input type="text" class="form-control p-sm-1" id="brand" placeholder="Zadajte značku">
+              <input type="text" class="form-control p-sm-1" name="brand_id" placeholder="Zadajte značku">
             </div>
-            <label for="sex" class="col-xs-4 col-sm-4 col-md-1 col-lg-1 col-xl-1 col-xxl-1 col-form-label">Pohlavie</label>
+            <label for="sex_id" class="col-xs-4 col-sm-4 col-md-1 col-lg-1 col-xl-1 col-xxl-1 col-form-label">Pohlavie</label>
             <div class="col-xs-4 col-sm-4 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
-              <select class="form-control p-sm-1" id="sex">
-                <option>Ženy</option>
-                <option>Muži</option>
+              <select class="form-control p-sm-1" name="sex_id">
+                <option>žena</option>
+                <option>muž</option>
                 <option>Unisex</option>
               </select>
             </div>
           </div>
           <div class="form-group row py-1">
-            <label for="farba" class="col-xs-4 col-sm-4 col-md-3 col-lg-2 col-xl-2 col-xxl-2 col-form-label">Farba</label>
+            <label for="color_id" class="col-xs-4 col-sm-4 col-md-3 col-lg-2 col-xl-2 col-xxl-2 col-form-label">Farba</label>
             <div class="col-xs-8 col-sm-8 col-md-5 col-lg-6 col-xl-6 col-xxl-6">
-              <input type="text" class="form-control p-sm-1" id="farba" placeholder="Zadajte kategóriu">
+              <input type="text" class="form-control p-sm-1" name="color_id" placeholder="Zadajte kategóriu">
             </div>
-            <label for="farba" class="col-xs-4 col-sm-4 col-md-1 col-lg-1 col-xl-1 col-xxl-1 col-form-label">Cena</label>
+            <label for="price" class="col-xs-4 col-sm-4 col-md-1 col-lg-1 col-xl-1 col-xxl-1 col-form-label">Cena</label>
             <div class="col-xs-4 col-sm-4 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
-              <input type="text" class="form-control p-sm-1" id="farba" placeholder="Zadajte cenu">
+              <input type="text" class="form-control p-sm-1" name="price" placeholder="Zadajte cenu">
             </div>
           </div>
           <div class="form-group row py-1">
-            <label for="category" class="col-xs-4 col-sm-4 col-md-3 col-lg-2 col-xl-2 col-xxl-2 col-form-label">Kategória</label>
+            <label for="category_id" class="col-xs-4 col-sm-4 col-md-3 col-lg-2 col-xl-2 col-xxl-2 col-form-label">Kategória</label>
             <div class="col-xs-8 col-sm-8 col-md-9 col-lg-10 col-xl-10 col-xxl-10">
-              <input type="text" class="form-control" id="category" placeholder="Zadajte kategóriu">
+              <input type="text" class="form-control" name="category_id" placeholder="Zadajte kategóriu">
             </div>
           </div>
           <div class="form-group row py-1">
-            <label for="productInfo" class="col-xs-4 col-sm-4 col-md-3 col-lg-2 col-xl-2 col-xxl-2 col-form-label">Popis produktu</label>
+            <label for="description" class="col-xs-4 col-sm-4 col-md-3 col-lg-2 col-xl-2 col-xxl-2 col-form-label">Popis produktu</label>
             <div class="col-xs-8 col-sm-8 col-md-9 col-lg-10 col-xl-10 col-xxl-10">
-              <textarea class="form-control" id="productInfo" rows="5"></textarea>
+              <textarea class="form-control" name="description" rows="5"></textarea>
             </div>
           </div>
-        </form>
       </div>
       <div class="container py-3">
+        <!--
         <div class="row py-2">
           <div class="col-12">
             <i class="zmdi zmdi-image-o fs-1"></i>
@@ -86,13 +88,16 @@
           </div>
         </div>
       </div>
+-->
+
       <footer class="footer py-3">
         <div class="container">
           <div class="d-flex justify-content-between">
-            <button type="submit" class="btn btn-success">Späť</button>
+          <!--   <button type="submit" class="btn btn-success">Späť</button> -->
             <button type="submit" class="btn btn-success">Uložiť zmeny</button>
           </div>
         </div>
       </footer>
+      </form>
     </body>
 </html>
