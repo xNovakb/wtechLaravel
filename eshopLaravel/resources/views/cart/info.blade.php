@@ -66,47 +66,53 @@
                                 $user_id = auth()->user()->id;
                             } catch (Throwable $e){};
                         @endphp
+                        @if ($user != null)
+                        @php
+                            $name = explode(' ', $user->name_surname)[0];
+                            $surname = explode(' ', $user->name_surname)[1];
+                        @endphp
+                        @endif
                         <input type='hidden' name='shipping' value={{(old('shipping') == null) ? $shipping_id : old('shipping')}}>
                         <input type='hidden' name='payment' value={{(old('payment') == null) ? $payment_id : old('payment')}}>
                         <input type='hidden' name='user_id' value={{$user_id}}>
                         <div class="col-12 d-flex align-items-center justify-content-center sm-justify-content-end  mb-5">
                             <label for="name" class="form-label">Meno</label>
-                            <input type="text" class="form-information ms-2" name="name" value={{old('name')}}>
+                            <input type="text" class="form-information ms-2" name="name" value={{(old('name') != null) ? old('name') : (($user != null) ? $name : '')}}>
                         </div>
                         @error('name')
                             <p class="error">{{$message}}</p>
                         @enderror
                         <div class="col-12 d-flex align-items-center justify-content-center sm-justify-content-end  mb-5">
                             <label for="surname" class="form-label">Priezvisko</label>
-                            <input type="text" class="form-information ms-2" name="surname" value={{old('surname')}}>
+                            <input type="text" class="form-information ms-2" name="surname" value={{(old('surname') != null) ? old('surname') : (($user != null) ? $surname : '')}}>
                         </div>
                         @error('surname')
                             <p class="error">{{$message}}</p>
                         @enderror
                         <div class="col-12 d-flex align-items-center justify-content-center sm-justify-content-end  mb-5">
                             <label for="email" class="form-label">Email</label>
-                            <input type="text" class="form-information ms-2" name="email" value={{old('email')}}>
+                            <input type="text" class="form-information ms-2" name="email" value={{(old('email') != null) ? old('email') : (($user != null) ? $user->email : '')}}>
                         </div>
                         @error('email')
                             <p class="error">{{$message}}</p>
                         @enderror
                         <div class="col-12 d-flex align-items-center justify-content-center sm-justify-content-end  mb-5">
                             <label for="psc" class="form-label">PSČ</label>
-                            <input type="text" class="form-information ms-2" name="psc" value={{old('psc')}}>
+                            <input type="text" class="form-information ms-2" name="psc" value={{(old('psc') != null) ? old('psc') : (($user != null) ? $user->postalcode : '')}}>
                         </div>
                         @error('psc')
                             <p class="error">{{$message}}</p>
                         @enderror
                         <div class="col-12 d-flex align-items-center justify-content-center sm-justify-content-end  mb-5">
                             <label for="street" class="form-label">Ulica</label>
-                            <input type="text" class="form-information ms-2" name="street"  value={{old('street')}}>
+                            <input type="text" class="form-information ms-2" name="street"  value={{(old('street') != null) ? old('street') : (($user != null) ? $user->street : '')}}>
                         </div>
                         @error('street')
                             <p class="error">{{$message}}</p>
                         @enderror
                         <div class="col-12 d-flex align-items-center justify-content-center sm-justify-content-end  mb-5">
                             <label for="city" class="form-label">Mesto</label>
-                            <input type="text" class="form-information ms-2" name="city" value={{old('city')}}>
+                            <input type="text" class="form-information ms-2" name="city" value={{(old('city') != null) ? old('city') : (($user != null) ? $user->city : '')}}>
                         </div>
                         @error('city')
                             <p class="error">{{$message}}</p>
@@ -123,7 +129,7 @@
                 <div class="col-12 col-md-6 col-lg-3">
                     <div class="col-12 d-flex align-items-center justify-content-center sm-justify-content-end  mb-5">
                         <label for="phone" class="form-label">Tel. č.</label>
-                        <input type="text" class="form-information ms-2" name="phone" value={{old('phone')}}>
+                        <input type="text" class="form-information ms-2" name="phone" value={{(old('phone') != null) ? old('phone') : (($user != null) ? $user->tel_number : '')}}>
                     </div>
                     @error('phone')
                             <p class="error">{{$message}}</p>

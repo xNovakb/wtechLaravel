@@ -10,6 +10,7 @@ use App\Models\Product;
 use App\Models\Payment;
 use App\Models\Address;
 use App\Models\Order;
+use App\Models\User;
 use DB;
 use Session;
 
@@ -161,14 +162,17 @@ class CartController extends Controller
             return view('cart.info', [
                 'shipping_id' => $request->shipping,
                 'payment_id' => $request->payment,
-                'products' => $products
+                'products' => $products,
+                'user' => null
             ]);
         }else{
             $products = $this->loadFromDB($user_id);
+            $user = User::find($user_id);
             return view('cart.info', [
                 'shipping_id' => $request->shipping,
                 'payment_id' => $request->payment,
-                'products' => $products
+                'products' => $products,
+                'user' => $user
             ]);
         }
     }
