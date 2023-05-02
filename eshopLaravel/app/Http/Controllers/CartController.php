@@ -173,7 +173,7 @@ class CartController extends Controller
         }
     }
 
-    //store order TODO: products
+    //store order
     public function store(Request $request) {
         switch ($request->input('action')) {
             //bol stlaceny button "Späť"
@@ -236,6 +236,24 @@ class CartController extends Controller
                     ])->value('id');
                     //doplnenie idcka adresy do zaznamu objednavky
                     DB::table('order')->where('id', $order_id)->update(['address_id' => $address_id]);
+                    //mapovanie produktov na objednavku
+                    $user_id = Auth::id();
+                    if ($user_id){
+                        $products = $this->loadFromDB($user_id);
+                        //update user_id hodnoty v zazname obejdnavky na idcko prihlaseneho usera
+                        DB::table('order')->where('id', $order_id)->update(['user_id' => $user_id]);
+                        foreach ($products as $key => $value) {
+                            DB::insert('insert into order_product (order_id, product_id, quantity) values (?, ?, ?)', [$order_id, $value['id'], $value['quantity']]);
+                            DB::table('user_product')->where([['user_id', '=', $user_id],['product_id', '=', $value['id']]])->delete();
+                        }
+                    }else{
+                        $products = $this->loadFromSession();
+                        foreach ($products as $key => $value) {
+                            DB::insert('insert into order_product (order_id, product_id, quantity) values (?, ?, ?)', [$order_id, $value['id'], $value['quantity']]);
+                        }
+                        $new = array();
+                        Session::put('added-items', $new);
+                    }
                 //dorucenie na inu adresu 
                 }else{
                     $formFields = $request->validate([
@@ -274,8 +292,26 @@ class CartController extends Controller
                     ])->value('id');
                     //doplnenie idcka adresy do zaznamu objednavky
                     DB::table('order')->where('id', $order_id)->update(['address_id' => $address_id]);
+                    $user_id = Auth::id();
+                    if ($user_id){
+                        $products = $this->loadFromDB($user_id);
+                        //update user_id hodnoty v zazname obejdnavky na idcko prihlaseneho usera
+                        DB::table('order')->where('id', $order_id)->update(['user_id' => $user_id]);
+                        foreach ($products as $key => $value) {
+                            DB::insert('insert into order_product (order_id, product_id, quantity) values (?, ?, ?)', [$order_id, $value['id'], $value['quantity']]);
+                            DB::table('user_product')->where([['user_id', '=', $user_id],['product_id', '=', $value['id']]])->delete();
+                        }
+                    }else{
+                        $products = $this->loadFromSession();
+                        foreach ($products as $key => $value) {
+                            DB::insert('insert into order_product (order_id, product_id, quantity) values (?, ?, ?)', [$order_id, $value['id'], $value['quantity']]);
+                        }
+                        $new = array();
+                        Session::put('added-items', $new);
+                    }
                 }
-                dd($request->all());
+                session()->flash("success", "Objednávka bola vytvorená");
+                return redirect('/');
                 break;
         }
     }
