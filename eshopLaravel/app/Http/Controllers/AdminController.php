@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class AdminController extends Controller
 {
@@ -58,17 +59,23 @@ class AdminController extends Controller
     //delete product
     public function deleteProduct($id) {
         $product = Product::find($id);
+        $images = $product->images;
+
+        foreach ($images as $image) {
+            Storage::delete('public/' . $image->image);
+            $image->delete();
+        }
+
         $product->delete();
+
         return redirect()->back();
     }
 
     //create product
     public function store(Request $request) {
-        //dd($request->all());
-        //$request->file('images')->getError();
         $formfields = $request->validate([
             'name' => 'required',
-            'price' => 'required',
+            'price' => ['required', 'regex:/^\d+(\.\d{1,2})?$/'],
             'color_id' => 'required',
             'size_id' => 'required',
             'category_id' => 'required',
@@ -78,10 +85,9 @@ class AdminController extends Controller
             'images'=> 'required'
         ]);
 
-        //dd($request->file('images'));
-
         $product = Product::create($formfields);
 
+        if($request->hasFile('images')){
             foreach ($request->file('images') as $image) {
                 $imagePath = $image->storePublicly('images', 'public');
 
@@ -91,7 +97,44 @@ class AdminController extends Controller
 
                 $product->images()->save($productImage);
             }
+        }
 
+        return redirect('/admin/products');
+    }
+
+    //show edit product screen
+    public function editProduct($id) {
+        $product = Product::find($id);
+        return view('admin.editProduct', ['product'=> $product]);
+    }
+
+    //update edit product
+    public function updateProduct(Request $request, Product $product) {
+        $formfields = $request->validate([
+            'name' => 'required',
+            'price' => ['required', 'regex:/^\d+(\.\d{1,2})?$/'],
+            'color_id' => 'required',
+            'size_id' => 'required',
+            'category_id' => 'required',
+            'description' => 'required',
+            'sex_id' => 'required',
+            'brand_id' => 'required',
+            'images'=> 'required'
+        ]);
+
+        $product->create($formfields);
+
+        if($request->hasFile('images')) {
+            foreach ($request->file('images') as $image) {
+                $imagePath = $image->storePublicly('images', 'public');
+
+                $productImage = new ProductImages([
+                    'image' => $imagePath
+                ]);
+
+                $product->images()->save($productImage);
+            }
+        }
 
         return view('admin.productCreation');
     }
