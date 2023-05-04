@@ -19,7 +19,7 @@
                 <div class="container-fluid justify-content-center px-4">
                   <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <div class="d-flex align-items-center flex-grow-1 justify-content-end">
-                      <form class="d-flex col-10" action="/" method="GET">
+                      <form class="d-flex col-10" action="/admin/products" method="GET">
                         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="search">
                         <button class="btn" type="submit">
                           <i class="zmdi zmdi-search fs-2"></i>
@@ -28,10 +28,10 @@
                     </div>
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link d-none d-md-inline " href="/cart/summary">
-                                <i class="zmdi zmdi-shopping-cart-plus fs-2"></i>
+                            <a class="nav-link d-none d-md-inline " href="/admin/create">
+                                <i class="zmdi zmdi-plus-circle-o fs-2"></i>
                             </a>
-                            <a class="nav-link d-md-none" href="#">Košík</a>
+                            <a class="nav-link d-md-none" href="/admin/create">Košík</a>
                         </li>
                         <li class="nav-item">
                             <form action="/users/logout" method="POST">
@@ -65,7 +65,7 @@
             <div class="row">
                 <div class="card col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-2 col-xxl-2 border-0">
                     <div class="card-body">
-                      <form class="filter-form" action="/" method="GET">
+                      <form class="filter-form" action="/admin/products" method="GET">
                         <div class="form-group py-3">
                             <label class="py-2">Cena</label>
                             <div class="input-group">
@@ -149,7 +149,7 @@
                                         <li class="list-inline-item fw-bold">Cena</li>
                                         <li class="list-inline-item">{{ $product['price'] }}€</li>
                                     </ul>
-                                    <a href="/admin/edit/{{$product->id}}" class="col-8 btn btn-success rounded-6 my-1">Upraviť</a>
+                                    <a href="edit/{{$product->id}}" class="col-8 btn btn-success rounded-6 my-1">Upraviť</a>
                                     <form method="POST" action="/delete/product/{{$product->id}}">
                                          @csRf
                                          @method("DELETE")
