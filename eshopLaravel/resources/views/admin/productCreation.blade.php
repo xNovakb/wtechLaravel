@@ -16,7 +16,7 @@
     <body>
 
       <div class="container py-5">
-        <form method="POST" action="/create/product">
+        <form method="POST" action="/create/product" enctype="multipart/form-data">
             @csrf
           <div class="form-group row py-1">
             <label for="name" class="col-xs-4 col-sm-4 col-md-3 col-lg-2 col-xl-2 col-xxl-2 col-form-label">Názov produktu</label>
@@ -73,27 +73,22 @@
           </div>
       </div>
       <div class="container py-3">
-        <!--
         <div class="row py-2">
           <div class="col-12">
             <i class="zmdi zmdi-image-o fs-1"></i>
-            <label for="obrazky" class="fs-2 px-2">Obrázky:</label>
-            <button class="btn btn-success px-3">+ Nový</button>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-xs-12 col-sm-12 col-3 px-3 d-flex">
-            <i class="zmdi zmdi-delete fs-2 d-inline-block"></i>
-            <img class="px-3 d-inline-block" src="assets/hoodie.jpg" alt="">
-          </div>
-        </div>
-      </div>
--->
+            <label for="images" class="fs-2 px-2">Obrázky:</label>
+            <input type="file" class="form-control" name="images[]" multiple />
 
+           <!-- @error('images')
+                <span class="text-danger">{{$message}} </span>
+            @enderror
+-->
+          </div>
+        </div>
       <footer class="footer py-3">
         <div class="container">
           <div class="d-flex justify-content-between">
-          <!--   <button type="submit" class="btn btn-success">Späť</button> -->
+            <!-- <button type="submit" class="btn btn-success">Späť</button> -->
             <button type="submit" class="btn btn-success">Uložiť zmeny</button>
           </div>
         </div>

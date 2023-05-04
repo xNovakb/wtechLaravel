@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Session;
 use App\Models\Product;
+use App\Models\ProductImages;
 use App\Models\UserProduct;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -63,7 +64,8 @@ class AdminController extends Controller
 
     //create product
     public function store(Request $request) {
-
+        //dd($request->all());
+        //$request->file('images')->getError();
         $formfields = $request->validate([
             'name' => 'required',
             'price' => 'required',
@@ -72,10 +74,25 @@ class AdminController extends Controller
             'category_id' => 'required',
             'description' => 'required',
             'sex_id' => 'required',
-            'brand_id' => 'required'
+            'brand_id' => 'required',
+            'images'=> 'required'
         ]);
 
-        Product::create($formfields);
+        //dd($request->file('images'));
+
+        $product = Product::create($formfields);
+
+            foreach ($request->file('images') as $image) {
+                $imagePath = $image->storePublicly('images', 'public');
+
+                $productImage = new ProductImages([
+                    'image' => $imagePath
+                ]);
+
+                $product->images()->save($productImage);
+            }
+
+
         return view('admin.productCreation');
     }
 }

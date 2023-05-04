@@ -20,6 +20,11 @@ class Product extends Model
         'sex_id',
     ];
 
+    public function images()
+    {
+        return $this->hasMany(ProductImages::class);
+    }
+
     public function users()
     {
         return $this->belongsToMany(User::class, 'user_product');
@@ -30,7 +35,7 @@ class Product extends Model
             foreach ($columns as $column) {
                 $query->orWhere($column, 'LIKE', '%' . $searchTerm . '%');
             }
-        
+
             return $query;
         }
 
@@ -41,17 +46,16 @@ class Product extends Model
         } else if ($filters['price_to']) {
             $query->where('price', '<=', $filters['price_to']);
         }
-    
+
         if ($filters['color']) {
             $query->where('color_id', $filters['color']);
         }
-    
+
         if ($filters['brand']) {
             $query->where('brand_id', $filters['brand']);
         }
-    
+
         return $query;
 
     }
-
 }

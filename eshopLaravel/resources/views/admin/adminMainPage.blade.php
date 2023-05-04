@@ -110,7 +110,12 @@
                                         <button type="button" data-bs-target="" data-bs-slide-to="2" aria-label="Slide 3"></button>
                                     </div>
                                     <div class="carousel-inner">
+                                    @foreach ($product->images as $image)
                                         <div class="carousel-item active cItem">
+                                            <img src="{{ asset('storage/' . $image->image) }}" class="d-block w-100 cImg" alt="Product Image">
+                                        </div>
+                                    @endforeach
+                                        <!--
                                             <img src="assets/boots.png" class="d-block w-100 cImg" alt="...">
                                         </div>
                                         <div class="carousel-item cItem">
@@ -119,6 +124,7 @@
                                         <div class="carousel-item cItem">
                                             <img src="assets/boots.png" class="d-block w-100 cImg" alt="...">
                                        </div>
+                                        -->
                                     </div>
                                     <button class="carousel-control-prev" type="button" data-bs-target="#hero-carousel" data-bs-slide="prev">
                                         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -143,7 +149,7 @@
                                         <li class="list-inline-item fw-bold">Cena</li>
                                         <li class="list-inline-item">{{ $product['price'] }}€</li>
                                     </ul>
-                                    <a href="#" class="col-8 btn btn-success rounded-6 my-1">Upraviť</a>
+                                    <a href="/admin/edit/{{$product->id}}" class="col-8 btn btn-success rounded-6 my-1">Upraviť</a>
                                     <form method="POST" action="/delete/product/{{$product->id}}">
                                          @csRf
                                          @method("DELETE")

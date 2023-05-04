@@ -75,8 +75,10 @@ Route::prefix('cart')->group(function () {
     Route::post('/store', [CartController::class, 'store']);
 });
 
+//create product
 Route::post('/create/product', [AdminController::class, 'store']);
 
+//delete product
 Route::delete('/delete/product/{id}', [AdminController::class, 'deleteProduct']);
 
 //Admin prefix
@@ -85,9 +87,13 @@ Route::prefix('admin')->group(function () {
         return view('admin.adminMainPage');
     });
 
+    //show create form
     Route::get('/create', function () {
         return view('admin.productCreation');
     });
+
+    //show edit form
+    Route::get('/edit/{id}', [AdminController::class, 'editProduct']);
 
 
 
@@ -98,6 +104,5 @@ Route::prefix('admin')->group(function () {
         return view('admin.productCreation');
     });
 */
-    //delete product
-    Route::delete('/products/{id}', [AdminController::class, 'deleteProduct']);
+
 });
