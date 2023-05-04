@@ -75,7 +75,7 @@ class AdminController extends Controller
     public function store(Request $request) {
         $formfields = $request->validate([
             'name' => 'required',
-            'price' => 'required',
+            'price' => ['required', 'regex:/^\d+(\.\d{1,2})?$/'],
             'color_id' => 'required',
             'size_id' => 'required',
             'category_id' => 'required',
@@ -99,7 +99,7 @@ class AdminController extends Controller
             }
         }
 
-        return view('admin.productCreation');
+        return redirect('/admin/products');
     }
 
     //show edit product screen
@@ -112,7 +112,7 @@ class AdminController extends Controller
     public function updateProduct(Request $request, Product $product) {
         $formfields = $request->validate([
             'name' => 'required',
-            'price' => 'required',
+            'price' => ['required', 'regex:/^\d+(\.\d{1,2})?$/'],
             'color_id' => 'required',
             'size_id' => 'required',
             'category_id' => 'required',
@@ -124,7 +124,7 @@ class AdminController extends Controller
 
         $product->create($formfields);
 
-        if($request->hasFile('images')){
+        if($request->hasFile('images')) {
             foreach ($request->file('images') as $image) {
                 $imagePath = $image->storePublicly('images', 'public');
 
@@ -138,5 +138,4 @@ class AdminController extends Controller
 
         return view('admin.productCreation');
     }
-
 }
