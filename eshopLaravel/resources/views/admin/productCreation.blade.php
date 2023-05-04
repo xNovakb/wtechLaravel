@@ -109,19 +109,17 @@
           <div class="col-12">
             <i class="zmdi zmdi-image-o fs-1"></i>
             <label for="images" class="fs-2 px-2">Obrázky:</label>
-            <input type="file" class="form-control" name="images[]" multiple/>
+            <label for="image-upload" class="button-success">
+                <span>+ Nový</span>
+                <input id="image-upload" type="file" name="images[]" multiple>
+            </label>
             @error('images')
                 <p>Toto pole je povinné</p>
             @enderror
         </div>
         <div id="image-preview"></div>
-           <!-- @error('images')
-                <span class="text-danger">{{$message}} </span>
-            @enderror
--->
           </div>
-        </div>
-
+      </div>
       <footer class="footer py-3">
         <div class="container">
           <div class="d-flex justify-content-between">
