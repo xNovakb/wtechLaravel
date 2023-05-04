@@ -81,6 +81,9 @@ Route::post('/create/product', [AdminController::class, 'store']);
 //delete product
 Route::delete('/delete/product/{id}', [AdminController::class, 'deleteProduct']);
 
+//edit product
+Route::put('/edit/product', [AdminController::class, 'uppdateProduct']);
+
 //Admin prefix
 Route::prefix('admin')->group(function () {
     Route::get('/products', function () {
@@ -95,14 +98,6 @@ Route::prefix('admin')->group(function () {
     //show edit form
     Route::get('/edit/{id}', [AdminController::class, 'editProduct']);
 
-
-
     //products with sorting
     Route::get('/products', [AdminController::class, 'getAndSortProductsBy']);
-/*
-    Route::get('/products/{id}', function () {
-        return view('admin.productCreation');
-    });
-*/
-
 });

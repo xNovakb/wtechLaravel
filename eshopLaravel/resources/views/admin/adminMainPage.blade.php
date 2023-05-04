@@ -149,7 +149,7 @@
                                         <li class="list-inline-item fw-bold">Cena</li>
                                         <li class="list-inline-item">{{ $product['price'] }}€</li>
                                     </ul>
-                                    <a href="/admin/edit/{{$product->id}}" class="col-8 btn btn-success rounded-6 my-1">Upraviť</a>
+                                    <a href="/edit/{{$product->id}}" class="col-8 btn btn-success rounded-6 my-1">Upraviť</a>
                                     <form method="POST" action="/delete/product/{{$product->id}}">
                                          @csRf
                                          @method("DELETE")
