@@ -26,7 +26,7 @@ class CartController extends Controller
         
         $products = array();
         foreach($items as $product) {
-
+            $image = DB::table('images')->select('image')->where('product_id', '=', $product->id)->get();
             $products[] = [
                 'id' => $product->id,
                 'name' => $product->name,
@@ -37,7 +37,8 @@ class CartController extends Controller
                 'color_id' => $product->color_id,
                 'size_id' => $product->size_id,
                 'sex_id' => $product->sex_id,
-                'quantity' => $product->quantity
+                'quantity' => $product->quantity,
+                'image' => $image[0]->image
             ];
         }
         return $products;
@@ -51,7 +52,7 @@ class CartController extends Controller
             foreach($data as $key => $value) {
                 $id = $value['item_id'];
                 $new_item = Product::find($id);
-
+                $image = DB::table('images')->select('image')->where('product_id', '=', $id)->get();
                 $products[] = [
                     'id' => $id,
                     'name' => $new_item->name,
@@ -62,7 +63,8 @@ class CartController extends Controller
                     'color_id' => $new_item->color_id,
                     'size_id' => $new_item->size_id,
                     'sex_id' => $new_item->sex_id,
-                    'quantity' => $value['item_quantity']
+                    'quantity' => $value['item_quantity'],
+                    'image' => $image[0]->image
                 ];
             }
         }
@@ -95,9 +97,7 @@ class CartController extends Controller
                                 ->select('product.*')
                                 ->where('user_product.user_id', '=', $user_id)
                                 ->get();
-            return view('cart.summary', [
-                'products' => $products
-            ]);
+            return redirect('/cart/summary');
         }else{
             $data = Session::get('added-items');
             $new = array();

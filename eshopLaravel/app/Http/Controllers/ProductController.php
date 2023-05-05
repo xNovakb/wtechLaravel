@@ -30,7 +30,7 @@ class ProductController extends Controller
         if ($user_id){
             $quantity = $request->input('quantity');
 
-            $userProduct = UserProduct::find($productId);
+            $userProduct = UserProduct::firstWhere('product_id', $productId)->get()[0];
             $userProduct->quantity = $quantity;
             $userProduct->save();
         }else{

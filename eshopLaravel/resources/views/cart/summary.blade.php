@@ -32,10 +32,13 @@
                         <a class="nav-link d-md-none" href="#">Domov</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link d-none d-md-inline" href="#">
-                            <i class="zmdi zmdi-power fs-2"></i>
-                        </a>
-                        <a class="nav-link d-md-none" href="#">Odhlásiť sa</a>
+                        <form action="/users/logout" method="POST">
+                            @csrf
+                            <button type="submit" class="nav-link d-none d-md-inline" href="#">
+                                <i class="zmdi zmdi-power fs-2"></i>
+                            </button>
+                            <button type="submit" class="nav-link d-md-none" href="#">Odhlásiť sa</button>
+                        </form>
                     </li>
                 </ul>
                 </div>
@@ -61,7 +64,7 @@
                 @csrf
                 <div class="row mb-4">
                     <div class="col-12 col-sm d-flex justify-content-center p-1">
-                        <img src="https://www.celiostore.sk/assets/files/catalog/item-pictures/thumbs/1500x2000c/b0777616-541e-4be2-b54c-d034bd2383cd-1100236-0.webp">
+                        <img src="{{ asset('storage/' . $value['image']) }}">
                     </div>
                     <div class="col-12 col-sm d-flex align-items-center justify-content-center p-1">
                         <a>{{$value['name']}}</a>
