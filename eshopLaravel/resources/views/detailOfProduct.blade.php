@@ -15,26 +15,37 @@
         <nav class="navbar navbar-expand-md bg-body-tertiary py-3">
             <div class="container-fluid justify-content-center px-4">
               <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <div class="d-flex align-items-center flex-grow-1">
-                  <form class="d-flex w-100">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                <div class="d-flex align-items-center flex-grow-1 justify-content-end">
+                  <form class="d-flex col-10" action="/" method="GET">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="search">
                     <button class="btn" type="submit">
                       <i class="zmdi zmdi-search fs-2"></i>
                     </button>
                   </form>
                 </div>
-                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                   <li class="nav-item">
-                    <a class="nav-link" href="/cart/summary">
-                      <i class="zmdi zmdi-shopping-cart-plus fs-2"></i>
-                    </a>
+                      <a class="nav-link d-none d-md-inline " href="/cart/summary">
+                          <i class="zmdi zmdi-shopping-cart-plus fs-2"></i>
+                      </a>
+                      <a class="nav-link d-md-none" href="#">Košík</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link">
-                      <i class="zmdi zmdi-power fs-2"></i>
-                    </a>
+                      @if (Auth::check())
+                      <form action="/users/logout" method="POST">
+                          @csrf
+                          <button type="submit" class="nav-link d-none d-md-inline btn btn-link nav-link-button">
+                              <i class="zmdi zmdi-lock-outline fs-2"></i>
+                          </button>
+                          <button type="submit" class="nav-link d-md-none btn btn-link nav-link-button">Odhlásiť sa</button>
+                      </form>
+                      @else
+                          <a class="nav-link d-none d-md-inline" href="/login">
+                              <i class="zmdi zmdi-lock-open fs-2"></i>
+                          </a>
+                      @endif
                   </li>
-                </ul>
+              </ul>
               </div>
               <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <i class="zmdi zmdi-menu fs-2"></i>

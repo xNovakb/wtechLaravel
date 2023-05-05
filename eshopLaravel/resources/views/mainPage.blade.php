@@ -34,13 +34,19 @@
                             <a class="nav-link d-md-none" href="#">Košík</a>
                         </li>
                         <li class="nav-item">
+                            @if (Auth::check())
                             <form action="/users/logout" method="POST">
                                 @csrf
-                                <button type="submit" class="nav-link d-none d-md-inline" href="#">
-                                    <i class="zmdi zmdi-power fs-2"></i>
+                                <button type="submit" class="nav-link d-none d-md-inline btn btn-link nav-link-button">
+                                    <i class="zmdi zmdi-lock-outline fs-2"></i>
                                 </button>
-                                <button type="submit" class="nav-link d-md-none" href="#">Odhlásiť sa</button>
+                                <button type="submit" class="nav-link d-md-none btn btn-link nav-link-button">Odhlásiť sa</button>
                             </form>
+                            @else
+                                <a class="nav-link d-none d-md-inline" href="/login">
+                                    <i class="zmdi zmdi-lock-open fs-2"></i>
+                                </a>
+                            @endif
                         </li>
                     </ul>
                   </div>
@@ -74,26 +80,30 @@
                         <div class="form-group py-3">
                             <label class="py-2">Cena</label>
                             <div class="input-group">
-                                <input type="number" class="form-control" name="price_from">
+                                <input type="number" class="form-control" name="price_from" value="{{ $filters['price_from'] }}">
                                 <span class="input-group-text">-</span>
-                                <input type="number" class="form-control" name="price_to">
+                                <input type="number" class="form-control" name="price_to" value="{{ $filters['price_to'] }}">
                             </div>
                         </div>
                         <div class="form-group">
-                          <label class="py-2">Značka</label>
-                          <select class="form-control" name="brand">
-                            <option> </option>
-                            @foreach($brands as $brand)
-                                <option value="{{ $brand }}">{{ $brand }}</option>
-                            @endforeach
-                          </select>
+                            <label class="py-2">Značka</label>
+                            <select class="form-control" name="brand">
+                                <option>{{ $filters['brand'] }}</option>
+                                @foreach($brands as $brand)
+                                    @if($brand != $filters['brand'])
+                                        <option value="{{ $brand }}">{{ $brand }}</option>
+                                    @endif
+                                @endforeach
+                            </select>
                         </div>
-                        <div class="form-group py-3">
+                        <div class="form-group">
                             <label class="py-2">Farba</label>
                             <select class="form-control" name="color">
-                                <option> </option>
+                                <option>{{ $filters['color'] }}</option>
                                 @foreach($colors as $color)
-                                    <option value="{{ $color }}">{{ $color }}</option>
+                                    @if($color != $filters['brand'])
+                                        <option value="{{ $color }}">{{ $color }}</option>
+                                    @endif
                                 @endforeach
                             </select>
                         </div>
@@ -158,7 +168,7 @@
         </div>
 
         <footer>
-            <div>
+            <div class="d-flex justify-content-center">
                 {{ $products->appends(['search' => request('search'), 'sort' => request('sort'), 'price_from' => request('price_from'), 'price_to' => request('price_to'), 'color' => request('color'), 'brand' => request('brand')])->links() }}
             </div>
         </footer>

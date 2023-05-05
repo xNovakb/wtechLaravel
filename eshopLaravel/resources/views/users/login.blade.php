@@ -35,12 +35,12 @@
                       <div class="text-center bg-dark">
                         <hr class="my-3 ">
                       </div>
+                    </form>
                       <h6 class="card-title text-center my-3">Ešte nemate účet?</h6>
                       <div class="form-group text-center">
-                        <button type="submit" class="btn btn-success btn-block">Zaregistrujte sa</button>
+                        <a href="/register" class="btn btn-success btn-block">Zaregistrujte sa</a>
                       </div>
                     </div>
-                  </form>
                 </div>
               </div>
             </div>

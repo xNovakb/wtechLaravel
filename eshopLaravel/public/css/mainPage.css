@@ -41,3 +41,10 @@
   color: black;
 }
 
+.nav-link-button{
+  text-decoration: none; 
+  color: inherit; 
+  background: none; 
+  padding: 0;
+}
+
