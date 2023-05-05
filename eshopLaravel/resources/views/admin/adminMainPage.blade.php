@@ -10,7 +10,7 @@
         <!-- Icons -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
         <link rel="stylesheet" type="text/css" href="{{ asset('css/mainPage.css') }}">
-        <title>Admin obrazovka</title>
+ <title>Admin obrazovka</title>
     </head>
     <body>
         <script src="{{ asset('js/mainPage.js') }}"></script>
@@ -101,39 +101,30 @@
                 <div class="col">
                     <div class="row">
                         @foreach ($products as $product)
+
                         <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-3 col-xxl-3 py-2">
                             <div class="card text-center">
-                                <div id="" class="carousel slide">
+                                <div id="carousel-{{ $product->id }}" class="carousel slide" data-bs-interval="false">
                                     <div class="carousel-indicators">
-                                        <button type="button" data-bs-target="" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                                        <button type="button" data-bs-target="" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                                        <button type="button" data-bs-target="" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                                        @foreach ($product->images as $key => $image)
+                                            <button type="button" data-bs-target="#carousel-{{ $product->id }}" data-bs-slide-to="{{ $key }}" class="{{ $key === 0 ? 'active' : '' }}"></button>
+                                        @endforeach
                                     </div>
                                     <div class="carousel-inner">
-                                    @foreach ($product->images as $image)
-                                        <div class="carousel-item active cItem">
-                                            <img src="{{ asset('storage/' . $image->image) }}" class="d-block w-100 cImg" alt="Product Image">
-                                        </div>
-                                    @endforeach
-                                        <!--
-                                            <img src="assets/boots.png" class="d-block w-100 cImg" alt="...">
-                                        </div>
-                                        <div class="carousel-item cItem">
-                                            <img src="assets/dress.jpg" class="d-block w-100 cImg" alt="...">
-                                        </div>
-                                        <div class="carousel-item cItem">
-                                            <img src="assets/boots.png" class="d-block w-100 cImg" alt="...">
-                                       </div>
-                                        -->
+                                        @foreach ($product->images as $key => $image)
+                                            <div class="carousel-item {{ $key === 0 ? 'active' : '' }}">
+                                                <img src="{{ asset('storage/' . $image->image) }}" class="d-block w-100" alt="Product Image">
+                                            </div>
+                                        @endforeach
                                     </div>
-                                    <button class="carousel-control-prev" type="button" data-bs-target="#hero-carousel" data-bs-slide="prev">
+                                    <a class="carousel-control-prev" href="#carousel-{{ $product->id }}" role="button" data-bs-slide="prev">
                                         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                                         <span class="visually-hidden">Previous</span>
-                                    </button>
-                                    <button class="carousel-control-next" type="button" data-bs-target="#hero-carousel" data-bs-slide="next">
+                                    </a>
+                                    <a class="carousel-control-next" href="#carousel-{{ $product->id }}" role="button" data-bs-slide="next">
                                         <span class="carousel-control-next-icon" aria-hidden="true"></span>
                                         <span class="visually-hidden">Next</span>
-                                    </button>
+                                    </a>
                                 </div>
                                 <div class="card-body justify-content-center">
                                     <h5 class="card-title col-12">{{ $product['name'] }}</h5>
@@ -171,7 +162,8 @@
                 {{ $products->appends(['search' => request('search'), 'sort' => request('sort'), 'price_from' => request('price_from'), 'price_to' => request('price_to'), 'color' => request('color'), 'brand' => request('brand')])->links() }}
             </div>
         </footer>
-
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js" integrity="sha384-zYPOMqeu1DAVkHiLqWBUTcbYfZ8osu1Nd6Z89ify25QV9guujx43ITvfi12/QExE" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.min.js" integrity="sha384-Y4oOpwW3duJdCWv5ly8SCFYWqFDsfob/3GkgExXKV4idmbt98QcxXYs9UoXAB7BZ" crossorigin="anonymous"></script>
     </body>
 </html>
 

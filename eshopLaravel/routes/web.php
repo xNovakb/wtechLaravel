@@ -81,8 +81,17 @@ Route::post('/create/product', [AdminController::class, 'store']);
 //delete product
 Route::delete('/delete/product/{id}', [AdminController::class, 'deleteProduct']);
 
+//delete product
+Route::delete('/delete/image/{id}', [AdminController::class, 'deleteImage']);
+
 //edit product
-Route::put('/edit/product', [AdminController::class, 'uppdateProduct']);
+Route::post('/edit/{id}', [AdminController::class, 'updateProduct']);
+
+//edit product
+Route::put('/edit/product/{id}', function(Request $request, $id) {
+    $product = Product::find($id);
+    dd($product);})->name('edit.product');
+
 
 //Admin prefix
 Route::prefix('admin')->group(function () {

@@ -110,6 +110,7 @@ class AdminController extends Controller
 
     //update edit product
     public function updateProduct(Request $request, Product $product) {
+        dd($product);
         $formfields = $request->validate([
             'name' => 'required',
             'price' => ['required', 'regex:/^\d+(\.\d{1,2})?$/'],
@@ -122,7 +123,9 @@ class AdminController extends Controller
             'images'=> 'required'
         ]);
 
-        $product->create($formfields);
+
+
+        $product->update($formfields);
 
         if($request->hasFile('images')) {
             foreach ($request->file('images') as $image) {
@@ -136,6 +139,18 @@ class AdminController extends Controller
             }
         }
 
-        return view('admin.productCreation');
+        return back();
+    }
+
+    public function deleteImage($id) {
+        $image = ProductImages::find($id);
+        dd($image);
+        $productId = $image->product_id;
+        dd($image);
+        Storage::delete('public/' . $image->image);
+        $image->delete();
+
+
+        return redirect('/admin/products');
     }
 }
