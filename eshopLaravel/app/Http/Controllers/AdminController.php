@@ -109,23 +109,19 @@ class AdminController extends Controller
     }
 
     //update edit product
-    public function updateProduct(Request $request, Product $product) {
-        dd($product);
+    public function updateProduct(Request $request, $id) {
+
+        $product = Product::find($id);
         $formfields = $request->validate([
             'name' => 'required',
-            'price' => ['required', 'regex:/^\d+(\.\d{1,2})?$/'],
+            'price' => ['required', 'regex:/^\d+(\.\d{1,2})?$/', 'gt:0'],
             'color_id' => 'required',
             'size_id' => 'required',
             'category_id' => 'required',
             'description' => 'required',
             'sex_id' => 'required',
             'brand_id' => 'required',
-            'images'=> 'required'
         ]);
-
-
-
-        $product->update($formfields);
 
         if($request->hasFile('images')) {
             foreach ($request->file('images') as $image) {
@@ -139,18 +135,22 @@ class AdminController extends Controller
             }
         }
 
-        return back();
+        if ($product->images->count() < 1) {
+            return back()->withErrors(['images' => 'The product must have at least two images.'])->withInput();
+        }
+
+        $product->update($formfields);
+
+        return redirect('admin/products');
     }
 
     public function deleteImage($id) {
         $image = ProductImages::find($id);
-        dd($image);
         $productId = $image->product_id;
-        dd($image);
         Storage::delete('public/' . $image->image);
         $image->delete();
 
 
-        return redirect('/admin/products');
+        return back();
     }
 }

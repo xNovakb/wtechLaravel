@@ -32,6 +32,35 @@
     }
 }
 
+  /* Style images differently at different breakpoints */
+  @media (max-width: 576px) {
+    .img-fluid {
+      width: 300px !important;
+      height: 300px !important;
+    }
+  }
+
+  @media (max-width: 768px) and (min-width:576px) {
+    .img-fluid {
+      width: 250px !important;
+      height: 250px !important;
+    }
+  }
+
+  @media (max-width: 1200px) and (min-width:768px) {
+    .img-fluid {
+      width: 200px !important;
+      height: 200px !important;
+    }
+  }
+
+  @media (min-width: 1200px) {
+    .img-fluid {
+      width: 150px !important;
+      height: 150px !important;
+    }
+}
+
 .button-success {
     display: inline-block;
     background-color: #218838;

@@ -4,7 +4,7 @@
         <!-- Required meta tags -->
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-
+        <meta name="csrf-token" content="{{ csrf_token() }}">
         <!-- Bootstrap CSS -->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
         <!-- Icons -->
@@ -13,10 +13,10 @@
         <title>Edit produktu</title>
     </head>
     <body>
-
       <div class="container py-5">
-        <form method="POST" action="/edit/{{$product->id}}" enctype="multipart/form-data">
-            @csrf
+        <form id="form1" method="POST" action="/edit/{{$product->id}}" enctype="multipart/form-data">
+        {{ csrf_field() }}
+        <input type="hidden" name="_method" value="PUT">
           <div class="form-group row py-1">
             <label for="name" class="col-xs-4 col-sm-4 col-md-3 col-lg-2 col-xl-2 col-xxl-2 col-form-label">Názov produktu</label>
             <div class="col-xs-8 col-sm-8 col-md-5 col-lg-6 col-xl-6 col-xxl-6">
@@ -77,7 +77,11 @@
             <div class="col-xs-4 col-sm-4 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
               <input type="text" class="form-control p-sm-1" name="price" placeholder="Zadajte cenu" value="{{$product->price}}">
               @error('price')
-                <p>Toto pole je povinné / Cena môže mať maximlne  desatiiné miesta</p>
+                @if($message == "The price field is required.")
+                    <p>Toto pole je povinné</p>
+                @else
+                    <p>Cena musí byť väčšia ako 0 a zároveň môže mať maximálne 2 desatinné čísla</p>
+                @endif
               @enderror
             </div>
           </div>
@@ -113,13 +117,25 @@
                 <span>+ Nový</span>
                 <input id="image-upload" type="file" name="images[]" multiple>
             </label>
+            <div class="container">
+                <div class="d-flex justify-content-between">
+                    <a href="/admin/products" class="btn btn-success @error('images') disabled @enderror">Späť</a>
+                    <button type="submit" class="btn btn-success">Uložiť zmeny</button>
+                </div>
+            </div>
+            </form>
             <div class="container py-3">
             <div class="row">
             @foreach($product->images as $image)
                 <div class="col-md-3">
                     <img src="{{asset('storage/'.$image->image)}}" class="img-fluid" alt="{{$product->name}} image">
+                    <form action="/delete/image/{{$image->id}}" method="POST">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-danger">Vymazať obrázok</button>
+                    </form>
                 </div>
-                @endforeach
+            @endforeach
             </div>
             </div>
             @error('images')
@@ -129,22 +145,15 @@
         <div id="image-preview"></div>
           </div>
       </div>
-      <footer class="footer py-3">
-        <div class="container">
-          <div class="d-flex justify-content-between">
-            <a href="/admin/products" class="btn btn-success">Späť</a>
-            <button type="submit" class="btn btn-success">Uložiť zmeny</button>
-          </div>
-          </form>
-        </div>
-      </footer>
+
       <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script>
+            let files = [];
             $('input[type="file"]').on('change', function() {
-            let files = $(this).get(0).files;
+            files = $(this).get(0).files;
 
             let preview = $('#image-preview');
-            console.log(preview);
+            console.log(files.length);
             preview.empty();
             for (let i = 0; i < files.length; i++) {
                 let file = files[i];
@@ -157,7 +166,14 @@
 
                 preview.append(img);
             }
-            });
+        });
+
+        window.addEventListener('pageshow', function (event) {
+            var backButton = document.getElementById('back-button');
+            if (backButton && {!! $errors->count() !!}) {
+                backButton.disabled = true;
+            }
+        });
         </script>
     </body>
 </html>

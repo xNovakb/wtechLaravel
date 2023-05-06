@@ -9,7 +9,7 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
         <!-- Icons -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
-        <link rel="stylesheet" type="text/css" href="{{ asset('css/mainPage.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/mainPage.css') }}">
  <title>Admin obrazovka</title>
     </head>
     <body>
@@ -21,7 +21,7 @@
                     <div class="d-flex align-items-center flex-grow-1 justify-content-end">
                       <form class="d-flex col-10" action="/admin/products" method="GET">
                         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="search">
-                        <button class="btn" type="submit">
+                        <button class="btnnav btn" type="submit">
                           <i class="zmdi zmdi-search fs-2"></i>
                         </button>
                       </form>
@@ -31,15 +31,15 @@
                             <a class="nav-link d-none d-md-inline " href="/admin/create">
                                 <i class="zmdi zmdi-plus-circle-o fs-2"></i>
                             </a>
-                            <a class="nav-link d-md-none" href="/admin/create">Košík</a>
+                            <a class="nav-link d-md-none" href="/admin/create">Pridať produkt</a>
                         </li>
                         <li class="nav-item">
                             <form action="/users/logout" method="POST">
                                 @csrf
-                                <button type="submit" class="nav-link d-none d-md-inline" href="#">
+                                <button type="submit" class="btnnav nav-link d-none d-md-inline" href="#">
                                     <i class="zmdi zmdi-power fs-2"></i>
                                 </button>
-                                <button type="submit" class="nav-link d-md-none" href="#">Odhlásiť sa</button>
+                                <button type="submit" class="btnnav nav-link d-md-none" href="#">Odhlásiť sa</button>
                             </form>
                         </li>
                     </ul>
@@ -53,10 +53,10 @@
         <div class="container-fluid">
             <div class="row pb-3">
                 <div class="col d-none d-sm-flex justify-content-center">
-                    <a href="?{{ http_build_query(['sort' => 'name_asc'] + request()->all()) }}" class="sort mx-2" type="button">Odporúčané</a>
-    <a href="?{{ http_build_query(['sort' => 'name_desc'] + request()->all()) }}" class="sort mx-2" type="button">Najpredávanejšie</a>
-    <a href="?{{ http_build_query(['sort' => 'price_asc'] + request()->all()) }}" class="sort mx-2" type="button">Najlacnejšie</a>
-    <a href="?{{ http_build_query(['sort' => 'price_desc'] + request()->all()) }}" class="sort mx-2" type="button">Najdrahšie</a>
+                    <a href="?{{ http_build_query(['sort' => 'name_asc'] + request()->all()) }}" class="btnFilter sort mx-2" type="button">Odporúčané</a>
+    <a href="?{{ http_build_query(['sort' => 'name_desc'] + request()->all()) }}" class="btnFilter sort mx-2" type="button">Najpredávanejšie</a>
+    <a href="?{{ http_build_query(['sort' => 'price_asc'] + request()->all()) }}" class="btnFilter sort mx-2" type="button">Najlacnejšie</a>
+    <a href="?{{ http_build_query(['sort' => 'price_desc'] + request()->all()) }}" class="btnFilter sort mx-2" type="button">Najdrahšie</a>
 </div>
             </div>
         </div>
@@ -112,8 +112,8 @@
                                     </div>
                                     <div class="carousel-inner">
                                         @foreach ($product->images as $key => $image)
-                                            <div class="carousel-item {{ $key === 0 ? 'active' : '' }}">
-                                                <img src="{{ asset('storage/' . $image->image) }}" class="d-block w-100" alt="Product Image">
+                                            <div class="carousel-item {{ $key === 0 ? 'active' : '' }} cItem">
+                                                <img src="{{ asset('storage/' . $image->image) }}" class="d-block w-100 cImg" alt="Product Image">
                                             </div>
                                         @endforeach
                                     </div>

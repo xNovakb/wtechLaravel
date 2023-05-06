@@ -85,7 +85,7 @@ Route::delete('/delete/product/{id}', [AdminController::class, 'deleteProduct'])
 Route::delete('/delete/image/{id}', [AdminController::class, 'deleteImage']);
 
 //edit product
-Route::post('/edit/{id}', [AdminController::class, 'updateProduct']);
+Route::put('/edit/{id}', [AdminController::class, 'updateProduct']);
 
 //edit product
 Route::put('/edit/product/{id}', function(Request $request, $id) {

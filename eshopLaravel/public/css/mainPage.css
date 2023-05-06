@@ -18,15 +18,21 @@
 
 .btnFilter{
   background-color: #fff;
-  border-width: 0;    
+  border-width: 0;
+  text-decoration: none;
+  color: black;
 }
 
 .btnFilter:after {
   display:block;
   content: '';
-  border-bottom: solid 3px #019fb6;  
-  transform: scaleX(0);  
+  border-bottom: solid 3px #019fb6;
+  transform: scaleX(0);
   transition: transform 250ms ease-in-out;
+}
+
+.btnFilter:hover {
+    color: #019fb6;
 }
 
 .btnFilter:hover:after { transform: scaleX(1); }
@@ -34,10 +40,19 @@
 .nav-link {
   margin-right: 10px;
   margin-left: 10px;
-  color: black; 
+  color: black;
 }
 
 .nav-link:hover{
   color: black;
 }
 
+.btnnav{
+    border: 0;
+    background-color: white;
+}
+
+ul.navbar-nav {
+    display: flex;
+    align-items: center;
+}
