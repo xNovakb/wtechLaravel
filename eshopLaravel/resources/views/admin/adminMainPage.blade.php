@@ -34,13 +34,19 @@
                             <a class="nav-link d-md-none" href="/admin/create">Pridať produkt</a>
                         </li>
                         <li class="nav-item">
+                            @if (Auth::check())
                             <form action="/users/logout" method="POST">
                                 @csrf
-                                <button type="submit" class="btnnav nav-link d-none d-md-inline" href="#">
-                                    <i class="zmdi zmdi-power fs-2"></i>
+                                <button type="submit" class="nav-link d-none d-md-inline btn btn-link nav-link-button">
+                                    <i class="zmdi zmdi-lock-outline fs-2"></i>
                                 </button>
-                                <button type="submit" class="btnnav nav-link d-md-none" href="#">Odhlásiť sa</button>
+                                <button type="submit" class="nav-link d-md-none btn btn-link nav-link-button">Odhlásiť sa</button>
                             </form>
+                            @else
+                                <a class="nav-link d-none d-md-inline" href="/login">
+                                    <i class="zmdi zmdi-lock-open fs-2"></i>
+                                </a>
+                            @endif
                         </li>
                     </ul>
                   </div>
@@ -158,7 +164,7 @@
         </div>
 
         <footer>
-            <div>
+            <div class="d-flex justify-content-center">
                 {{ $products->appends(['search' => request('search'), 'sort' => request('sort'), 'price_from' => request('price_from'), 'price_to' => request('price_to'), 'color' => request('color'), 'brand' => request('brand')])->links() }}
             </div>
         </footer>
