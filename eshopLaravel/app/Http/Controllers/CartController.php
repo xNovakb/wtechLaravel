@@ -90,6 +90,7 @@ class CartController extends Controller
     //delete item from cart
     public function delete(Request $request, $product_id) {
         $user_id = Auth::id();
+        $previosUrl = $request->headers->get('referer');
         if ($user_id) {
             DB::table('user_product')->where([['user_id', '=', $user_id],['product_id', '=', $product_id]])->delete();
             $products = DB::table('user_product')
@@ -112,7 +113,13 @@ class CartController extends Controller
                 }
             }
             Session::put('added-items', $new);
-            return redirect('/cart/summary');
+
+            if(str_contains($previosUrl, 'product')) {
+                return redirect("/product/{$product_id}");
+            } else {
+                return redirect('/cart/summary');;
+            }
+            
         }
     }
 

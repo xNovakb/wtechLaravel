@@ -112,7 +112,7 @@
                     <p><strong>Farba:</strong> {{ $product->color_id }}</p>
                     <p><strong>Cena:</strong> {{ $product->price }}</p>
                     <br>
-                    <form action="/add/{{$product->id}}" method="POST">
+                    <form action="/product/{{$product->id}}" method="POST">
                       @csrf
                         <div class="form-group row justify-content-end">
                         <input class="col-sm-2 col-md-4" type="number" class="form-control" id="quantity" min="1" max="10" value="1" name="quantity">
@@ -121,6 +121,16 @@
                         </div>
                         </div>
                     </form>
+                    @if (session('added-items') && in_array($product->id, array_column(session('added-items'), 'item_id')))
+                    <form action="/cart/del_cart_item/{{ $product->id }}" method="GET">
+                      @csrf
+                        <div class="form-group row justify-content-end">
+                            <div>
+                                <button type="submit" class="btn btn-danger">Odstrániť z košíka</button>
+                            </div>
+                        </div>
+                    </form>
+                    @endif
                 </div>
             </div>
         </div>

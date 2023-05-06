@@ -55,7 +55,7 @@ Route::prefix('users')->group(function () {
     Route::post('/logout', [UserController::class, 'logout']);
 });
 
-Route::post('add/{product_id}', [ProductController::class, 'addProduct']);
+Route::post('/product/{product_id}', [ProductController::class, 'addProduct']);
 
 //Cart prefix
 Route::prefix('cart')->group(function () {
