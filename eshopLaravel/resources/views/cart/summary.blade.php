@@ -17,7 +17,7 @@
             <div class="container-fluid justify-content-center px-4">
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <div class="d-flex align-items-center flex-grow-1 justify-content-end">
-                    <form class="d-flex col-10" action="/" method="GET">
+                    <form class="d-flex col-9" action="/" method="GET">
                     <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
                     <button class="btn" type="submit">
                         <i class="zmdi zmdi-search fs-2"></i>
@@ -32,21 +32,29 @@
                         <a class="nav-link d-md-none" href="#">Domov</a>
                     </li>
                     <li class="nav-item">
-                        <form action="/users/logout" method="POST">
-                            @csrf
-                            <button type="submit" class="nav-link d-none d-md-inline" href="#">
-                                <i class="zmdi zmdi-power fs-2"></i>
-                            </button>
-                            <button type="submit" class="nav-link d-md-none" href="#">Odhlásiť sa</button>
-                        </form>
+                        @if (Auth::check())
+                            <form action="/users/logout" method="POST">
+                                @csrf
+                                <button type="submit" class="nav-link d-none d-md-inline btn btn-link nav-link-button">
+                                    <i class="zmdi zmdi-lock-outline fs-2"></i>
+                                </button>
+                                <button type="submit" class="nav-link d-md-none btn btn-link nav-link-button">Odhlásiť sa</button>
+                            </form>
+                            @else
+                                <a class="nav-link d-none d-md-inline" href="/login">
+                                    <i class="zmdi zmdi-lock-open fs-2"></i>
+                                </a>
+                                <a href="/login" class="nav-link d-md-none btn btn-link nav-link-button">Prihlasiť sa</a>
+                            @endif
                     </li>
                 </ul>
                 </div>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <i class="zmdi zmdi-menu fs-2"></i>
                 </button>
-            </nav>
-        </header>
+            </div>
+        </nav>
+    </header>
     <div class="container">
         <nav class="container d-none d-sm-block m-4">
             <div class="row justify-content-center">

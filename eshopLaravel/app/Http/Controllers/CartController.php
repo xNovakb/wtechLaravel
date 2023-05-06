@@ -26,7 +26,7 @@ class CartController extends Controller
         
         $products = array();
         foreach($items as $product) {
-            $image = DB::table('images')->select('image')->where('product_id', '=', $product->id)->get();
+            $image = DB::table('product_image')->select('image')->where('product_id', '=', $product->id)->get();
             $products[] = [
                 'id' => $product->id,
                 'name' => $product->name,
@@ -52,7 +52,7 @@ class CartController extends Controller
             foreach($data as $key => $value) {
                 $id = $value['item_id'];
                 $new_item = Product::find($id);
-                $image = DB::table('images')->select('image')->where('product_id', '=', $id)->get();
+                $image = DB::table('product_image')->select('image')->where('product_id', '=', $id)->get();
                 $products[] = [
                     'id' => $id,
                     'name' => $new_item->name,
