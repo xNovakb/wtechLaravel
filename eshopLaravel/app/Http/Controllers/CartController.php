@@ -98,29 +98,26 @@ class CartController extends Controller
                                 ->select('product.*')
                                 ->where('user_product.user_id', '=', $user_id)
                                 ->get();
-            return redirect('/cart/summary');
-        }else{
-            $data = Session::get('added-items');
-            $new = array();
-            foreach ($data as $key => $value) {
-                if ($value['item_id'] != $product_id){
-                    $id = $value['item_id'];
-                    $quantity = $value['item_quantity'];
-                    $new[] = array(
-                        'item_id' => $id,
-                        'item_quantity' => $quantity,
-                    );
-                }
-            }
-            Session::put('added-items', $new);
-
-            if(str_contains($previosUrl, 'product')) {
-                return redirect("/product/{$product_id}");
-            } else {
-                return redirect('/cart/summary');;
-            }
-            
         }
+        $data = Session::get('added-items');
+        $new = array();
+        foreach ($data as $key => $value) {
+            if ($value['item_id'] != $product_id){
+                $id = $value['item_id'];
+                $quantity = $value['item_quantity'];
+                $new[] = array(
+                    'item_id' => $id,
+                    'item_quantity' => $quantity,
+                );
+            }
+        }
+        Session::put('added-items', $new);
+
+        if(str_contains($previosUrl, 'product')) {
+            return redirect("/product/{$product_id}");
+        } else {
+            return redirect('/cart/summary');;
+        }    
     }
 
     //show shipping

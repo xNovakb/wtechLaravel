@@ -16,20 +16,20 @@
         <nav class="navbar navbar-expand-md bg-body-tertiary py-3">
             <div class="container-fluid justify-content-center px-4">
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <div class="d-flex align-items-center flex-grow-1 justify-content-end">
-                    <form class="d-flex col-9" action="/" method="GET">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn" type="submit">
-                        <i class="zmdi zmdi-search fs-2"></i>
-                    </button>
-                    </form>
-                </div>
+                    <div class="d-flex align-items-center flex-grow-1 justify-content-end">
+                        <form class="d-flex col-9" action="/" method="GET">
+                            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                            <button class="btn" type="submit">
+                                <i class="zmdi zmdi-search fs-2"></i>
+                            </button>
+                        </form>
+                    </div>
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
                         <a class="nav-link d-none d-md-inline " href="/">
                             <i class="zmdi zmdi-home fs-2"></i>
                         </a>
-                        <a class="nav-link d-md-none" href="#">Domov</a>
+                        <a class="d-flex nav-link d-md-none justify-content-center" href="/">Domov</a>
                     </li>
                     <li class="nav-item">
                         @if (Auth::check())
@@ -52,7 +52,6 @@
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <i class="zmdi zmdi-menu fs-2"></i>
                 </button>
-            </div>
         </nav>
     </header>
     <div class="container">
@@ -106,5 +105,7 @@
             </div>
         </div>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js" integrity="sha384-zYPOMqeu1DAVkHiLqWBUTcbYfZ8osu1Nd6Z89ify25QV9guujx43ITvfi12/QExE" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.min.js" integrity="sha384-Y4oOpwW3duJdCWv5ly8SCFYWqFDsfob/3GkgExXKV4idmbt98QcxXYs9UoXAB7BZ" crossorigin="anonymous"></script>
 </body>
 </html>

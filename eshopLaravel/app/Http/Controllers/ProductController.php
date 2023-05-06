@@ -112,46 +112,45 @@ class ProductController extends Controller
                 ]);
             }
             //ak sme neziskali idcko (user nie je prihlaseny) ukladame kosik do session
+        }
+        if (Session::has('added-items')) {
+            Session::push('added-items', [
+                'item_id' => $product_id,
+                'item_quantity' => $request->quantity
+            ]);
+
+            $array = Session::get('added-items');
+            $total = array();
+
+            foreach ($array as $key => $value) {
+                $id = $value['item_id'];
+                $quantity = $value['item_quantity'];
+                
+                if (!isset($total[$id])) 
+                {
+                    $total[$id] = 0;
+                }
+                
+                $total[$id] += $quantity;
+            };
+
+            $items = array();
+
+            foreach($total as $item_id => $item_quantity) {
+                $items[] = array(
+                    'item_id' => $item_id,
+                    'item_quantity' => $item_quantity
+                    );
+            };
+
+            Session::put('added-items', $items);
         }else{
-            if (Session::has('added-items')) {
-                Session::push('added-items', [
+            Session::put('added-items', [
+                0 => [
                     'item_id' => $product_id,
                     'item_quantity' => $request->quantity
-                ]);
-    
-                $array = Session::get('added-items');
-                $total = array();
-    
-                foreach ($array as $key => $value) {
-                    $id = $value['item_id'];
-                    $quantity = $value['item_quantity'];
-                    
-                    if (!isset($total[$id])) 
-                    {
-                        $total[$id] = 0;
-                    }
-                    
-                    $total[$id] += $quantity;
-                };
-    
-                $items = array();
-    
-                foreach($total as $item_id => $item_quantity) {
-                    $items[] = array(
-                        'item_id' => $item_id,
-                        'item_quantity' => $item_quantity
-                        );
-                };
-    
-                Session::put('added-items', $items);
-            }else{
-                Session::put('added-items', [
-                    0 => [
-                        'item_id' => $product_id,
-                        'item_quantity' => $request->quantity
-                    ]
-                ]);
-            }
+                ]
+            ]);
         }
 
         $product = Product::find($product_id);
