@@ -59,11 +59,11 @@
         <div class="container-fluid">
             <div class="row pb-3">
                 <div class="col d-none d-sm-flex justify-content-center">
-                    <a href="?{{ http_build_query(['sort' => 'name_asc'] + request()->all()) }}" class="btnFilter sort mx-2" type="button">Odporúčané</a>
-    <a href="?{{ http_build_query(['sort' => 'name_desc'] + request()->all()) }}" class="btnFilter sort mx-2" type="button">Najpredávanejšie</a>
-    <a href="?{{ http_build_query(['sort' => 'price_asc'] + request()->all()) }}" class="btnFilter sort mx-2" type="button">Najlacnejšie</a>
-    <a href="?{{ http_build_query(['sort' => 'price_desc'] + request()->all()) }}" class="btnFilter sort mx-2" type="button">Najdrahšie</a>
-</div>
+                    <a href="?{{ http_build_query(['sort' => 'name_asc'] + request()->all()) }}" class="btnFilter sort mx-2" type="button">Názov A-Z</a>
+                    <a href="?{{ http_build_query(['sort' => 'name_desc'] + request()->all()) }}" class="btnFilter sort mx-2" type="button">Názov Z-A</a>
+                    <a href="?{{ http_build_query(['sort' => 'price_asc'] + request()->all()) }}" class="btnFilter sort mx-2" type="button">Najlacnejšie</a>
+                    <a href="?{{ http_build_query(['sort' => 'price_desc'] + request()->all()) }}" class="btnFilter sort mx-2" type="button">Najdrahšie</a>
+                </div>
             </div>
         </div>
 
