@@ -86,7 +86,7 @@ class ProductController extends Controller
             
             $brands = Product::distinct('brand_id')->pluck('brand_id');
             $colors = Product::distinct('color_id')->pluck('color_id');
-            return view('mainPage', ['products' => $products, 'brands' => $brands, 'colors' => $colors]);
+            return view('mainPage', ['products' => $products, 'brands' => $brands, 'colors' => $colors, 'filters' => $filters]);
     }
 
     //pridanie produktu do kosika

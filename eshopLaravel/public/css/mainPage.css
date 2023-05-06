@@ -56,3 +56,10 @@ ul.navbar-nav {
     display: flex;
     align-items: center;
 }
+.nav-link-button{
+  text-decoration: none;
+  color: inherit;
+  background: none;
+  padding: 0;
+}
+
