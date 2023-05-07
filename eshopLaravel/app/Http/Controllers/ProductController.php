@@ -28,12 +28,12 @@ class ProductController extends Controller
         $user_id = Auth::id();
 
         if ($user_id){
-            $quantity = $request->input('quantity');
+            $quantity = $request->input('quantity'.$productId);
 
-            $userProduct = UserProduct::firstWhere('product_id', $productId)->get()[0];
+            $userProduct = UserProduct::firstWhere([['product_id', $productId], ['user_id', $user_id]]);
             $userProduct->quantity = $quantity;
             $userProduct->save();
-        }else{
+        }
             //uprava quantity v session
             $array = Session::get('added-items');
             $new = array();
@@ -42,7 +42,7 @@ class ProductController extends Controller
                 if ($value['item_id'] == $productId){
                     $id = $value['item_id'];
                     //upravenie quantity
-                    $quantity = $request->input('quantity');
+                    $quantity = $request->input('quantity'.$productId);
                 }else{
                     $id = $value['item_id'];
                     $quantity = $value['item_quantity'];
@@ -55,7 +55,6 @@ class ProductController extends Controller
             }
             //ulozenie do session
             Session::put('added-items', $new);
-        }
 
 
 

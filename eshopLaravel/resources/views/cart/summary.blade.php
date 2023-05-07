@@ -77,7 +77,7 @@
                         <a>{{$value['name']}}</a>
                     </div>
                     <div class="col-12 col-sm-1 d-flex align-items-center justify-content-center p-1">
-                        <input type="number" placeholder="{{$value['quantity']}}" class="item-number" name="quantity" value="{{ $value['quantity'] }}" onchange="this.form.submit()">
+                        <input type="number" placeholder="{{$value['quantity']}}" class="item-number" name={{"quantity".$value['id']}} value="{{ $value['quantity'] }}" onchange="this.form.submit()">
                     </div>
                     <div class="col d-none d-md-block">
     
