@@ -18,14 +18,16 @@ class CartController extends Controller
 {   
     //load cart items for logged in user from database
     private function loadFromDB($user_id){
+        //vytiahnutie produktov ktore su v kosiku na zaklade user_id
         $items = DB::table('user_product')
                             ->join('product', 'product.id', '=', 'user_product.product_id')
                             ->select('product.*', 'user_product.quantity')
                             ->where('user_product.user_id', '=', $user_id)
                             ->get();
-        
+        //uprava do spravneho formatu
         $products = array();
         foreach($items as $product) {
+            //pridanie obrazkov
             $image = DB::table('product_image')->select('image')->where('product_id', '=', $product->id)->get();
             $products[] = [
                 'id' => $product->id,
@@ -46,12 +48,14 @@ class CartController extends Controller
 
     //load cart items for user that is not logged in from session
     private function loadFromSession(){
+        //vytiahnutie produktov zo session
         $data = Session::get('added-items');
         $products = array();
         if ($data){
             foreach($data as $key => $value) {
                 $id = $value['item_id'];
                 $new_item = Product::find($id);
+                //pridanie obrazka
                 $image = DB::table('product_image')->select('image')->where('product_id', '=', $id)->get();
                 $products[] = [
                     'id' => $id,
@@ -92,14 +96,11 @@ class CartController extends Controller
         $user_id = Auth::id();
         $previosUrl = $request->headers->get('referer');
         if ($user_id) {
+            //vymazanie produktov z kosika v databaze
             DB::table('user_product')->where([['user_id', '=', $user_id],['product_id', '=', $product_id]])->delete();
-            $products = DB::table('user_product')
-                                ->join('product', 'product.id', '=', 'user_product.product_id')
-                                ->select('product.*')
-                                ->where('user_product.user_id', '=', $user_id)
-                                ->get();
         }
         $data = Session::get('added-items');
+        //upravenie produktov v session
         $new = array();
         foreach ($data as $key => $value) {
             if ($value['item_id'] != $product_id){
@@ -111,10 +112,12 @@ class CartController extends Controller
                 );
             }
         }
+        //vlozenie upravenych produktov do session
         Session::put('added-items', $new);
-
+        //navrat na detail produktu
         if(str_contains($previosUrl, 'product')) {
             return redirect("/product/{$product_id}");
+        //navrat do kosika
         } else {
             return redirect('/cart/summary');;
         }    
@@ -171,6 +174,7 @@ class CartController extends Controller
             ]);
         }else{
             $products = $this->loadFromDB($user_id);
+            //ziskanie usera, pre doplnanie informacii
             $user = User::find($user_id);
             return view('cart.info', [
                 'shipping_id' => $request->shipping,
@@ -184,7 +188,7 @@ class CartController extends Controller
     //store order
     public function store(Request $request) {
         switch ($request->input('action')) {
-            //bol stlaceny button "Späť"
+            //bol stlaceny button "Späť", navrat na payment obrazovku
             case 'back':
                 $user_id = Auth::id();
                 if ($user_id == null) {
@@ -248,7 +252,7 @@ class CartController extends Controller
                     $user_id = Auth::id();
                     if ($user_id){
                         $products = $this->loadFromDB($user_id);
-                        //update user_id hodnoty v zazname obejdnavky na idcko prihlaseneho usera
+                        //update user_id hodnoty v zazname objednavky na idcko prihlaseneho usera
                         DB::table('order')->where('id', $order_id)->update(['user_id' => $user_id]);
                         foreach ($products as $key => $value) {
                             DB::insert('insert into order_product (order_id, product_id, quantity) values (?, ?, ?)', [$order_id, $value['id'], $value['quantity']]);
@@ -307,13 +311,18 @@ class CartController extends Controller
                         DB::table('order')->where('id', $order_id)->update(['user_id' => $user_id]);
                         foreach ($products as $key => $value) {
                             DB::insert('insert into order_product (order_id, product_id, quantity) values (?, ?, ?)', [$order_id, $value['id'], $value['quantity']]);
+                            //vymazanie produktov z kosika v databaze
                             DB::table('user_product')->where([['user_id', '=', $user_id],['product_id', '=', $value['id']]])->delete();
+                            //vymazanie produktov z kosika v session
+                            $new = array();
+                            Session::put('added-items', $new);
                         }
                     }else{
                         $products = $this->loadFromSession();
                         foreach ($products as $key => $value) {
                             DB::insert('insert into order_product (order_id, product_id, quantity) values (?, ?, ?)', [$order_id, $value['id'], $value['quantity']]);
                         }
+                        //vymazanie produktov z kosika v session
                         $new = array();
                         Session::put('added-items', $new);
                     }

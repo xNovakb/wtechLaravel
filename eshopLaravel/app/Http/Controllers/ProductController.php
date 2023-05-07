@@ -34,21 +34,26 @@ class ProductController extends Controller
             $userProduct->quantity = $quantity;
             $userProduct->save();
         }else{
+            //uprava quantity v session
             $array = Session::get('added-items');
             $new = array();
             foreach ($array as $key => $value) {
+                //ked najdeme produkt, ktoremu chceme upravit quantity
                 if ($value['item_id'] == $productId){
                     $id = $value['item_id'];
+                    //upravenie quantity
                     $quantity = $request->input('quantity');
                 }else{
                     $id = $value['item_id'];
                     $quantity = $value['item_quantity'];
                 }
+                //ulozenie do novej array
                 $new[] = array(
                     'item_id' => $id,
                     'item_quantity' => $quantity,
                 );
             }
+            //ulozenie do session
             Session::put('added-items', $new);
         }
 
@@ -114,14 +119,15 @@ class ProductController extends Controller
             //ak sme neziskali idcko (user nie je prihlaseny) ukladame kosik do session
         }
         if (Session::has('added-items')) {
+            //pridanie produktov do session
             Session::push('added-items', [
                 'item_id' => $product_id,
                 'item_quantity' => $request->quantity
             ]);
-
+            
+            //uprava quantity
             $array = Session::get('added-items');
             $total = array();
-
             foreach ($array as $key => $value) {
                 $id = $value['item_id'];
                 $quantity = $value['item_quantity'];
@@ -134,8 +140,8 @@ class ProductController extends Controller
                 $total[$id] += $quantity;
             };
 
+            //ulozenie produktov s novou quantity
             $items = array();
-
             foreach($total as $item_id => $item_quantity) {
                 $items[] = array(
                     'item_id' => $item_id,
@@ -145,6 +151,7 @@ class ProductController extends Controller
 
             Session::put('added-items', $items);
         }else{
+            //ak session nema produkty, jednoduche pridanie
             Session::put('added-items', [
                 0 => [
                     'item_id' => $product_id,
