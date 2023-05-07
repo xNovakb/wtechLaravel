@@ -113,9 +113,15 @@ class UserController extends Controller
                         ]);
                     }
                 };
+                
             }
+            if($formFields['email'] == 'admin@admin.sk') {
+                return redirect('/admin/products');
+            }
+            
             return redirect('/');
         }
+        return redirect('/login');
     }
 
 }

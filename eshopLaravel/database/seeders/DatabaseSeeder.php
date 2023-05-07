@@ -3,12 +3,13 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-use Illuminate\Database\Seeder;
-use App\Models\Shipping;
+use App\Models\User;
 use App\Models\Payment;
 use App\Models\Product;
-use App\Models\User;
+use App\Models\Shipping;
 use App\Models\ProductImages;
+use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 {
@@ -32,9 +33,9 @@ class DatabaseSeeder extends Seeder
         ]);
 
         User::create([
-            'email' => 'admin',
+            'email' => 'admin@admin.sk',
             'email_verified_at' => '2022-05-06 14:30:00',
-            'password' => 'admin',
+            'password' => Hash::make('adminadmin'),
             'tel_number' => '0000000000',
             'name_surname' => 'admin',
             'street' => 'Staré Grunty',
